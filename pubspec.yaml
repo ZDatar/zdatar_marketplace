@@ -1,0 +1,80 @@
+name: zdatar_marketplace
+description: A decentralized blockchain-based personal data exchange marketplace
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: ">=3.10.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  # UI & Navigation
+  cupertino_icons: ^1.0.6
+  go_router: ^12.1.3
+  flutter_riverpod: ^2.4.9
+  
+  # Blockchain & Wallet (temporarily removed for dependency resolution)
+  # solana: ^0.30.1
+  # web3dart: ^2.7.3
+  # walletconnect_dart: ^0.0.11
+  
+  # HTTP & API
+  dio: ^5.4.0
+  retrofit: ^4.0.3
+  json_annotation: ^4.8.1
+  
+  # Storage & Encryption
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  crypto: ^3.0.3
+  encrypt: ^5.0.1
+  
+  # UI Components
+  flutter_svg: ^2.0.9
+  cached_network_image: ^3.3.0
+  shimmer: ^3.0.0
+  pull_to_refresh: ^2.0.0
+  
+  # Charts & Data Visualization
+  fl_chart: ^0.65.0
+  syncfusion_flutter_charts: ^23.2.7
+  
+  # Utils
+  intl: ^0.18.0
+  uuid: ^3.0.5
+  path_provider: ^2.1.1
+  share_plus: ^7.2.1
+  file_picker: ^6.1.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.1
+  
+  # Code Generation
+  build_runner: ^2.4.7
+  retrofit_generator: ^8.0.4
+  json_serializable: ^6.7.1
+  hive_generator: ^2.0.1
+
+flutter:
+  uses-material-design: true
+  
+  # assets:
+    # - assets/images/
+    # - assets/icons/
+    # - assets/animations/
+  
+  # fonts:
+    # - family: Inter
+      # fonts:
+        # - asset: assets/fonts/Inter-Regular.ttf
+        # - asset: assets/fonts/Inter-Medium.ttf
+          # weight: 500
+        # - asset: assets/fonts/Inter-SemiBold.ttf
+          # weight: 600
+        # - asset: assets/fonts/Inter-Bold.ttf
+          # weight: 700
