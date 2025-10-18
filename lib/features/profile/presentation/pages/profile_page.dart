@@ -9,7 +9,7 @@ class ProfilePage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
     final user = _getMockUser(); // In real app, get from provider
-    
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -17,48 +17,61 @@ class ProfilePage extends ConsumerWidget {
         children: [
           // Profile Header
           _buildProfileHeader(theme, user),
-          
+
           const SizedBox(height: 24),
-          
+
           // Stats Cards
           _buildStatsSection(theme, user),
-          
+
           const SizedBox(height: 24),
-          
+
           // Settings Sections
           _buildSettingsSection(theme, 'Account', [
-            _buildSettingItem(theme, 'Edit Profile', Icons.person, () => _editProfile(context)),
-            _buildSettingItem(theme, 'Verification', Icons.verified, () => _manageVerification(context)),
-            _buildSettingItem(theme, 'Privacy Settings', Icons.privacy_tip, () => _privacySettings(context)),
+            _buildSettingItem(theme, 'Edit Profile', Icons.person,
+                () => _editProfile(context)),
+            _buildSettingItem(theme, 'Verification', Icons.verified,
+                () => _manageVerification(context)),
+            _buildSettingItem(theme, 'Privacy Settings', Icons.privacy_tip,
+                () => _privacySettings(context)),
           ]),
-          
+
           const SizedBox(height: 16),
-          
+
           _buildSettingsSection(theme, 'Preferences', [
-            _buildSettingItem(theme, 'Notifications', Icons.notifications, () => _notificationSettings(context)),
-            _buildSettingItem(theme, 'Language', Icons.language, () => _languageSettings(context)),
-            _buildSettingItem(theme, 'Theme', Icons.palette, () => _themeSettings(context)),
+            _buildSettingItem(theme, 'Notifications', Icons.notifications,
+                () => _notificationSettings(context)),
+            _buildSettingItem(theme, 'Language', Icons.language,
+                () => _languageSettings(context)),
+            _buildSettingItem(
+                theme, 'Theme', Icons.palette, () => _themeSettings(context)),
           ]),
-          
+
           const SizedBox(height: 16),
-          
+
           _buildSettingsSection(theme, 'Data & Security', [
-            _buildSettingItem(theme, 'Data Export', Icons.download, () => _exportData(context)),
-            _buildSettingItem(theme, 'Security Settings', Icons.security, () => _securitySettings(context)),
-            _buildSettingItem(theme, 'Connected Apps', Icons.apps, () => _connectedApps(context)),
+            _buildSettingItem(theme, 'Data Export', Icons.download,
+                () => _exportData(context)),
+            _buildSettingItem(theme, 'Security Settings', Icons.security,
+                () => _securitySettings(context)),
+            _buildSettingItem(theme, 'Connected Apps', Icons.apps,
+                () => _connectedApps(context)),
           ]),
-          
+
           const SizedBox(height: 16),
-          
+
           _buildSettingsSection(theme, 'Support', [
-            _buildSettingItem(theme, 'Help Center', Icons.help, () => _helpCenter(context)),
-            _buildSettingItem(theme, 'Contact Support', Icons.support_agent, () => _contactSupport(context)),
-            _buildSettingItem(theme, 'Terms of Service', Icons.description, () => _termsOfService(context)),
-            _buildSettingItem(theme, 'Privacy Policy', Icons.policy, () => _privacyPolicy(context)),
+            _buildSettingItem(
+                theme, 'Help Center', Icons.help, () => _helpCenter(context)),
+            _buildSettingItem(theme, 'Contact Support', Icons.support_agent,
+                () => _contactSupport(context)),
+            _buildSettingItem(theme, 'Terms of Service', Icons.description,
+                () => _termsOfService(context)),
+            _buildSettingItem(theme, 'Privacy Policy', Icons.policy,
+                () => _privacyPolicy(context)),
           ]),
-          
+
           const SizedBox(height: 24),
-          
+
           // Logout Button
           SizedBox(
             width: double.infinity,
@@ -73,15 +86,15 @@ class ProfilePage extends ConsumerWidget {
               ),
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // App Version
           Center(
             child: Text(
               'ZDatar Marketplace v1.0.0',
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.5),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
               ),
             ),
           ),
@@ -101,7 +114,7 @@ class ProfilePage extends ConsumerWidget {
               children: [
                 CircleAvatar(
                   radius: 50,
-                  backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
+                  backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
                   child: user.avatar != null
                       ? ClipOval(
                           child: Image.network(
@@ -130,17 +143,19 @@ class ProfilePage extends ConsumerWidget {
                     ),
                     child: IconButton(
                       onPressed: () => _changeAvatar(),
-                      icon: const Icon(Icons.camera_alt, color: Colors.white, size: 16),
+                      icon: const Icon(Icons.camera_alt,
+                          color: Colors.white, size: 16),
                       iconSize: 16,
-                      constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+                      constraints:
+                          const BoxConstraints(minWidth: 32, minHeight: 32),
                     ),
                   ),
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Name and Verification
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -161,14 +176,15 @@ class ProfilePage extends ConsumerWidget {
                 ],
               ],
             ),
-            
+
             const SizedBox(height: 4),
-            
+
             // Wallet Address
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                color:
+                    theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
@@ -179,7 +195,7 @@ class ProfilePage extends ConsumerWidget {
                     style: TextStyle(
                       fontFamily: 'monospace',
                       fontSize: 12,
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                   const SizedBox(width: 8),
@@ -188,20 +204,20 @@ class ProfilePage extends ConsumerWidget {
                     child: Icon(
                       Icons.copy,
                       size: 14,
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                 ],
               ),
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Rating
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.star, color: Colors.amber, size: 20),
+                const Icon(Icons.star, color: Colors.amber, size: 20),
                 const SizedBox(width: 4),
                 Text(
                   '${user.rating.toStringAsFixed(1)} Rating',
@@ -221,21 +237,25 @@ class ProfilePage extends ConsumerWidget {
     return Row(
       children: [
         Expanded(
-          child: _buildStatCard(theme, 'Datasets Sold', '${user.totalSales}', Icons.dataset),
+          child: _buildStatCard(
+              theme, 'Datasets Sold', '${user.totalSales}', Icons.dataset),
         ),
         const SizedBox(width: 12),
         Expanded(
-          child: _buildStatCard(theme, 'Total Earnings', '\$${user.totalEarnings.toStringAsFixed(0)}', Icons.attach_money),
+          child: _buildStatCard(theme, 'Total Earnings',
+              '\$${user.totalEarnings.toStringAsFixed(0)}', Icons.attach_money),
         ),
         const SizedBox(width: 12),
         Expanded(
-          child: _buildStatCard(theme, 'Purchases', '${user.totalPurchases}', Icons.shopping_cart),
+          child: _buildStatCard(theme, 'Purchases', '${user.totalPurchases}',
+              Icons.shopping_cart),
         ),
       ],
     );
   }
 
-  Widget _buildStatCard(ThemeData theme, String title, String value, IconData icon) {
+  Widget _buildStatCard(
+      ThemeData theme, String title, String value, IconData icon) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -258,7 +278,7 @@ class ProfilePage extends ConsumerWidget {
             Text(
               title,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
               textAlign: TextAlign.center,
             ),
@@ -268,7 +288,8 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildSettingsSection(ThemeData theme, String title, List<Widget> items) {
+  Widget _buildSettingsSection(
+      ThemeData theme, String title, List<Widget> items) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -289,7 +310,8 @@ class ProfilePage extends ConsumerWidget {
     );
   }
 
-  Widget _buildSettingItem(ThemeData theme, String title, IconData icon, VoidCallback onTap) {
+  Widget _buildSettingItem(
+      ThemeData theme, String title, IconData icon, VoidCallback onTap) {
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(8),
@@ -300,7 +322,7 @@ class ProfilePage extends ConsumerWidget {
             Icon(
               icon,
               size: 20,
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
             const SizedBox(width: 16),
             Expanded(
@@ -312,7 +334,7 @@ class ProfilePage extends ConsumerWidget {
             Icon(
               Icons.arrow_forward_ios,
               size: 16,
-              color: theme.colorScheme.onSurface.withOpacity(0.5),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
             ),
           ],
         ),
@@ -349,18 +371,18 @@ class ProfilePage extends ConsumerWidget {
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Edit Profile'),
-        content: Column(
+        content: const Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             TextField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Username',
                 hintText: 'Enter your username',
               ),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             TextField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Bio',
                 hintText: 'Tell us about yourself',
               ),

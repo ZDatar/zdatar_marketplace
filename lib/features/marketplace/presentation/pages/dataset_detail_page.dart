@@ -17,7 +17,7 @@ class DatasetDetailPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    
+
     // In a real app, this would fetch from a provider
     final dataset = _getMockDataset(datasetId);
     final seller = _getMockSeller(dataset.sellerId);
@@ -42,7 +42,7 @@ class DatasetDetailPage extends ConsumerWidget {
           children: [
             // Hero Section
             _buildHeroSection(context, theme, dataset),
-            
+
             // Content
             Padding(
               padding: const EdgeInsets.all(16),
@@ -51,25 +51,25 @@ class DatasetDetailPage extends ConsumerWidget {
                 children: [
                   // Overview Section
                   _buildOverviewSection(context, theme, dataset),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Sample Data Preview
                   if (dataset.hasSample) ...[
                     _buildSampleSection(context, theme, dataset),
                     const SizedBox(height: 24),
                   ],
-                  
+
                   // Seller Section
                   _buildSellerSection(context, theme, seller),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Reviews Section
                   _buildReviewsSection(context, theme, dataset),
-                  
+
                   const SizedBox(height: 24),
-                  
+
                   // Related Datasets
                   _buildRelatedSection(context, theme),
                 ],
@@ -82,7 +82,8 @@ class DatasetDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildHeroSection(BuildContext context, ThemeData theme, Dataset dataset) {
+  Widget _buildHeroSection(
+      BuildContext context, ThemeData theme, Dataset dataset) {
     return Container(
       height: 200,
       width: double.infinity,
@@ -91,8 +92,8 @@ class DatasetDetailPage extends ConsumerWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            theme.colorScheme.primary.withOpacity(0.1),
-            theme.colorScheme.secondary.withOpacity(0.1),
+            theme.colorScheme.primary.withValues(alpha: 0.1),
+            theme.colorScheme.secondary.withValues(alpha: 0.1),
           ],
         ),
       ),
@@ -113,7 +114,7 @@ class DatasetDetailPage extends ConsumerWidget {
                   Text(
                     dataset.category.displayName,
                     style: theme.textTheme.titleLarge?.copyWith(
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                 ],
@@ -122,7 +123,8 @@ class DatasetDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildOverviewSection(BuildContext context, ThemeData theme, Dataset dataset) {
+  Widget _buildOverviewSection(
+      BuildContext context, ThemeData theme, Dataset dataset) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -140,7 +142,7 @@ class DatasetDetailPage extends ConsumerWidget {
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
               decoration: BoxDecoration(
-                color: theme.colorScheme.primary.withOpacity(0.1),
+                color: theme.colorScheme.primary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Row(
@@ -160,33 +162,37 @@ class DatasetDetailPage extends ConsumerWidget {
             ),
           ],
         ),
-        
+
         const SizedBox(height: 12),
-        
+
         // Stats Row
         Row(
           children: [
-            _buildStatChip(theme, Icons.star, '${dataset.rating}', Colors.amber),
+            _buildStatChip(
+                theme, Icons.star, '${dataset.rating}', Colors.amber),
             const SizedBox(width: 8),
-            _buildStatChip(theme, Icons.shopping_cart, '${dataset.totalSales}', theme.colorScheme.secondary),
+            _buildStatChip(theme, Icons.shopping_cart, '${dataset.totalSales}',
+                theme.colorScheme.secondary),
             const SizedBox(width: 8),
-            _buildStatChip(theme, Icons.storage, dataset.formattedFileSize, theme.colorScheme.tertiary),
+            _buildStatChip(theme, Icons.storage, dataset.formattedFileSize,
+                theme.colorScheme.tertiary),
             const SizedBox(width: 8),
             if (dataset.region != null)
-              _buildStatChip(theme, Icons.location_on, dataset.region!, theme.colorScheme.primary),
+              _buildStatChip(theme, Icons.location_on, dataset.region!,
+                  theme.colorScheme.primary),
           ],
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         // Description
         Text(
           dataset.description,
           style: theme.textTheme.bodyLarge,
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         // Tags
         Wrap(
           spacing: 8,
@@ -194,24 +200,25 @@ class DatasetDetailPage extends ConsumerWidget {
           children: dataset.tags.map((tag) {
             return Chip(
               label: Text(tag),
-              backgroundColor: theme.colorScheme.surfaceVariant,
+              backgroundColor: theme.colorScheme.surfaceContainerHighest,
             );
           }).toList(),
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         // Data Info
         _buildDataInfo(theme, dataset),
       ],
     );
   }
 
-  Widget _buildStatChip(ThemeData theme, IconData icon, String label, Color color) {
+  Widget _buildStatChip(
+      ThemeData theme, IconData icon, String label, Color color) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -248,12 +255,12 @@ class DatasetDetailPage extends ConsumerWidget {
             const SizedBox(height: 12),
             _buildInfoRow(theme, 'File Type', dataset.fileType.toUpperCase()),
             _buildInfoRow(theme, 'File Size', dataset.formattedFileSize),
-            _buildInfoRow(theme, 'Data Period', 
-              '${dataset.dataStartDate.day}/${dataset.dataStartDate.month}/${dataset.dataStartDate.year} - ${dataset.dataEndDate.day}/${dataset.dataEndDate.month}/${dataset.dataEndDate.year}'),
+            _buildInfoRow(theme, 'Data Period',
+                '${dataset.dataStartDate.day}/${dataset.dataStartDate.month}/${dataset.dataStartDate.year} - ${dataset.dataEndDate.day}/${dataset.dataEndDate.month}/${dataset.dataEndDate.year}'),
             if (dataset.region != null)
               _buildInfoRow(theme, 'Region', dataset.region!),
-            _buildInfoRow(theme, 'Listed', 
-              '${dataset.createdAt.day}/${dataset.createdAt.month}/${dataset.createdAt.year}'),
+            _buildInfoRow(theme, 'Listed',
+                '${dataset.createdAt.day}/${dataset.createdAt.month}/${dataset.createdAt.year}'),
           ],
         ),
       ),
@@ -270,7 +277,7 @@ class DatasetDetailPage extends ConsumerWidget {
             child: Text(
               label,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
           ),
@@ -285,7 +292,8 @@ class DatasetDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildSampleSection(BuildContext context, ThemeData theme, Dataset dataset) {
+  Widget _buildSampleSection(
+      BuildContext context, ThemeData theme, Dataset dataset) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -334,7 +342,8 @@ class DatasetDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildSellerSection(BuildContext context, ThemeData theme, User seller) {
+  Widget _buildSellerSection(
+      BuildContext context, ThemeData theme, User seller) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -352,7 +361,7 @@ class DatasetDetailPage extends ConsumerWidget {
               children: [
                 CircleAvatar(
                   radius: 24,
-                  backgroundColor: theme.colorScheme.primary.withOpacity(0.1),
+                  backgroundColor: theme.colorScheme.primary.withValues(alpha: 0.1),
                   child: Text(
                     seller.username?.substring(0, 1).toUpperCase() ?? 'U',
                     style: TextStyle(
@@ -387,7 +396,7 @@ class DatasetDetailPage extends ConsumerWidget {
                       Text(
                         '${seller.walletAddress.substring(0, 6)}...${seller.walletAddress.substring(seller.walletAddress.length - 4)}',
                         style: theme.textTheme.bodySmall?.copyWith(
-                          color: theme.colorScheme.onSurface.withOpacity(0.7),
+                          color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                         ),
                       ),
                     ],
@@ -398,7 +407,7 @@ class DatasetDetailPage extends ConsumerWidget {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.star, size: 16, color: Colors.amber),
+                        const Icon(Icons.star, size: 16, color: Colors.amber),
                         Text('${seller.rating}'),
                       ],
                     ),
@@ -416,7 +425,8 @@ class DatasetDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildReviewsSection(BuildContext context, ThemeData theme, Dataset dataset) {
+  Widget _buildReviewsSection(
+      BuildContext context, ThemeData theme, Dataset dataset) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -434,7 +444,7 @@ class DatasetDetailPage extends ConsumerWidget {
                 const Spacer(),
                 Row(
                   children: [
-                    Icon(Icons.star, color: Colors.amber, size: 20),
+                    const Icon(Icons.star, color: Colors.amber, size: 20),
                     Text('${dataset.rating}'),
                   ],
                 ),
@@ -466,7 +476,7 @@ class DatasetDetailPage extends ConsumerWidget {
             children: [
               CircleAvatar(
                 radius: 16,
-                backgroundColor: theme.colorScheme.surfaceVariant,
+                backgroundColor: theme.colorScheme.surfaceContainerHighest,
                 child: Text('U${index + 1}'),
               ),
               const SizedBox(width: 8),
@@ -568,14 +578,15 @@ class DatasetDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildBottomBar(BuildContext context, ThemeData theme, Dataset dataset) {
+  Widget _buildBottomBar(
+      BuildContext context, ThemeData theme, Dataset dataset) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),
@@ -589,7 +600,7 @@ class DatasetDetailPage extends ConsumerWidget {
                 Text(
                   'Price',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                 ),
                 Text(
@@ -620,7 +631,8 @@ class DatasetDetailPage extends ConsumerWidget {
 
   List<FlSpot> _generateSampleData() {
     return List.generate(20, (index) {
-      return FlSpot(index.toDouble(), (index * 0.5 + (index % 3) * 2).toDouble());
+      return FlSpot(
+          index.toDouble(), (index * 0.5 + (index % 3) * 2).toDouble());
     });
   }
 
@@ -628,7 +640,8 @@ class DatasetDetailPage extends ConsumerWidget {
     return Dataset(
       id: id,
       title: 'Urban Mobility Patterns Dataset',
-      description: 'Comprehensive location and movement data collected from 1000+ users across Mumbai over a 3-month period. This dataset includes GPS coordinates, timestamps, transportation modes, and anonymized user demographics. Perfect for urban planning research, transportation optimization, and mobility behavior analysis.',
+      description:
+          'Comprehensive location and movement data collected from 1000+ users across Mumbai over a 3-month period. This dataset includes GPS coordinates, timestamps, transportation modes, and anonymized user demographics. Perfect for urban planning research, transportation optimization, and mobility behavior analysis.',
       sellerId: 'seller1',
       category: DatasetCategory.location,
       tags: ['mobility', 'urban', 'transportation', 'gps', 'mumbai'],

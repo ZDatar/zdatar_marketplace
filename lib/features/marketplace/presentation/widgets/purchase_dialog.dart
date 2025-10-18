@@ -82,7 +82,7 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -91,7 +91,7 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.1),
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Center(
@@ -117,7 +117,7 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
                 Text(
                   '${widget.dataset.formattedFileSize} • ${widget.dataset.category.displayName}',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                 ),
               ],
@@ -142,7 +142,7 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
         Container(
           decoration: BoxDecoration(
             border: Border.all(
-              color: theme.colorScheme.outline.withOpacity(0.3),
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
             ),
             borderRadius: BorderRadius.circular(8),
           ),
@@ -193,6 +193,15 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
           : () => _connectWallet(value),
       child: Container(
         padding: const EdgeInsets.all(12),
+        decoration: BoxDecoration(
+          color: isSelected
+              ? theme.colorScheme.primary.withValues(alpha: 0.1)
+              : Colors.transparent,
+          borderRadius: BorderRadius.circular(8),
+          border: isSelected
+              ? Border.all(color: theme.colorScheme.primary)
+              : null,
+        ),
         child: Row(
           children: [
             Radio<String>(
@@ -223,14 +232,14 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
                     style: theme.textTheme.bodySmall?.copyWith(
                       color: isConnected
                           ? theme.colorScheme.secondary
-                          : theme.colorScheme.onSurface.withOpacity(0.7),
+                          : theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                   if (balance != null)
                     Text(
                       balance,
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSurface.withOpacity(0.7),
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                       ),
                     ),
                 ],
@@ -265,7 +274,7 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
             border: Border.all(
-              color: theme.colorScheme.outline.withOpacity(0.3),
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
             ),
             borderRadius: BorderRadius.circular(8),
           ),
@@ -340,19 +349,19 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
               Text(
                 '• Data is encrypted and can only be decrypted by you',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
               Text(
                 '• No refunds after successful decryption',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
               Text(
                 '• Data usage subject to seller\'s license terms',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
             ],

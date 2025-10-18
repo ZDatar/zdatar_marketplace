@@ -19,7 +19,6 @@ class UploadStepIndicator extends StatelessWidget {
       child: Row(
         children: List.generate(totalSteps, (index) {
           final isActive = index <= currentStep;
-          final isCurrent = index == currentStep;
           
           return Expanded(
             child: Row(
@@ -30,7 +29,7 @@ class UploadStepIndicator extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: isActive
                           ? theme.colorScheme.primary
-                          : theme.colorScheme.outline.withOpacity(0.3),
+                          : theme.colorScheme.outline.withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(2),
                     ),
                   ),

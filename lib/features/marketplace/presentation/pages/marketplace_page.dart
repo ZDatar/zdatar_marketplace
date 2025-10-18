@@ -50,7 +50,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
               color: theme.colorScheme.surface,
               border: Border(
                 right: BorderSide(
-                  color: theme.colorScheme.outline.withOpacity(0.2),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.2),
                 ),
               ),
             ),
@@ -90,7 +90,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),
@@ -107,7 +107,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
           Text(
             'Refine your search to find the perfect dataset',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ],
@@ -122,7 +122,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         color: theme.colorScheme.surface,
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),
@@ -155,7 +155,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
         ),
       ),
       child: TextField(
@@ -166,7 +166,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
           hintText: 'Search datasets...',
           prefixIcon: Icon(
             Icons.search,
-            color: theme.colorScheme.onSurface.withOpacity(0.5),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           ),
           border: InputBorder.none,
           contentPadding:
@@ -184,7 +184,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
         ),
       ),
       child: DropdownButtonHideUnderline(
@@ -216,7 +216,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
         ),
       ),
       child: Row(
@@ -241,7 +241,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         height: 48,
         decoration: BoxDecoration(
           color: isSelected
-              ? theme.colorScheme.primary.withOpacity(0.1)
+              ? theme.colorScheme.primary.withValues(alpha: 0.1)
               : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
@@ -249,7 +249,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
           icon,
           color: isSelected
               ? theme.colorScheme.primary
-              : theme.colorScheme.onSurface.withOpacity(0.5),
+              : theme.colorScheme.onSurface.withValues(alpha: 0.5),
         ),
       ),
     );
@@ -276,7 +276,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
             Text(
               state.error!,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
             const SizedBox(height: 24),
@@ -296,14 +296,14 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.dataset_outlined,
-                size: 64, color: theme.colorScheme.onSurface.withOpacity(0.3)),
+                size: 64, color: theme.colorScheme.onSurface.withValues(alpha: 0.3)),
             const SizedBox(height: 16),
             Text('No datasets found', style: theme.textTheme.headlineSmall),
             const SizedBox(height: 8),
             Text(
               'Try adjusting your filters or search terms',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
           ],

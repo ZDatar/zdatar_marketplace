@@ -17,7 +17,7 @@ class DatasetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
@@ -33,7 +33,7 @@ class DatasetCard extends StatelessWidget {
       children: [
         // Preview Image or Category Icon
         _buildPreviewSection(theme, height: 120),
-        
+
         // Content
         Expanded(
           child: Padding(
@@ -50,26 +50,26 @@ class DatasetCard extends StatelessWidget {
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                
+
                 const SizedBox(height: 4),
-                
+
                 // Description
                 Text(
                   dataset.description,
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                
+
                 const Spacer(),
-                
+
                 // Stats Row
                 _buildStatsRow(theme, isCompact: true),
-                
+
                 const SizedBox(height: 8),
-                
+
                 // Price and Action
                 _buildPriceRow(theme),
               ],
@@ -88,9 +88,9 @@ class DatasetCard extends StatelessWidget {
         children: [
           // Preview Image
           _buildPreviewSection(theme, width: 80, height: 80),
-          
+
           const SizedBox(width: 16),
-          
+
           // Content
           Expanded(
             child: Column(
@@ -112,21 +112,21 @@ class DatasetCard extends StatelessWidget {
                     _buildCategoryChip(theme),
                   ],
                 ),
-                
+
                 const SizedBox(height: 4),
-                
+
                 // Description
                 Text(
                   dataset.description,
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                 ),
-                
+
                 const SizedBox(height: 8),
-                
+
                 // Stats and Price
                 Row(
                   children: [
@@ -142,12 +142,13 @@ class DatasetCard extends StatelessWidget {
     );
   }
 
-  Widget _buildPreviewSection(ThemeData theme, {double? width, double? height}) {
+  Widget _buildPreviewSection(ThemeData theme,
+      {double? width, double? height}) {
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant,
+        color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: width != null ? BorderRadius.circular(8) : null,
       ),
       child: dataset.previewImageUrl != null
@@ -168,8 +169,8 @@ class DatasetCard extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            theme.colorScheme.primary.withOpacity(0.1),
-            theme.colorScheme.secondary.withOpacity(0.1),
+            theme.colorScheme.primary.withValues(alpha: 0.1),
+            theme.colorScheme.secondary.withValues(alpha: 0.1),
           ],
         ),
       ),
@@ -186,7 +187,7 @@ class DatasetCard extends StatelessWidget {
               Text(
                 dataset.category.displayName,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
             ],
@@ -200,7 +201,7 @@ class DatasetCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: theme.colorScheme.primary.withOpacity(0.1),
+        color: theme.colorScheme.primary.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -232,51 +233,57 @@ class DatasetCard extends StatelessWidget {
         const SizedBox(width: 2),
         Text(
           dataset.rating.toStringAsFixed(1),
-          style: (isCompact ? theme.textTheme.bodySmall : theme.textTheme.bodyMedium)?.copyWith(
+          style: (isCompact
+                  ? theme.textTheme.bodySmall
+                  : theme.textTheme.bodyMedium)
+              ?.copyWith(
             fontWeight: FontWeight.w500,
           ),
         ),
-        
+
         if (!isCompact) ...[
           const SizedBox(width: 4),
           Text(
             '(${dataset.reviewCount})',
             style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.5),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
             ),
           ),
         ],
-        
+
         const SizedBox(width: 12),
-        
+
         // Sales
         Icon(
           Icons.shopping_cart,
           size: isCompact ? 12 : 14,
-          color: theme.colorScheme.onSurface.withOpacity(0.5),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
         ),
         const SizedBox(width: 2),
         Text(
           '${dataset.totalSales}',
-          style: (isCompact ? theme.textTheme.bodySmall : theme.textTheme.bodyMedium)?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+          style: (isCompact
+                  ? theme.textTheme.bodySmall
+                  : theme.textTheme.bodyMedium)
+              ?.copyWith(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
-        
+
         if (!isCompact) ...[
           const SizedBox(width: 12),
-          
+
           // File Size
           Icon(
             Icons.storage,
             size: 14,
-            color: theme.colorScheme.onSurface.withOpacity(0.5),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           ),
           const SizedBox(width: 2),
           Text(
             dataset.formattedFileSize,
             style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ],
@@ -295,13 +302,12 @@ class DatasetCard extends StatelessWidget {
             color: theme.colorScheme.primary,
           ),
         ),
-        
         if (dataset.hasSample) ...[
           const SizedBox(width: 8),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
             decoration: BoxDecoration(
-              color: theme.colorScheme.secondary.withOpacity(0.1),
+              color: theme.colorScheme.secondary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(

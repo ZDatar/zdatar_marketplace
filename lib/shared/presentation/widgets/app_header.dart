@@ -8,14 +8,14 @@ class AppHeader extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    
+
     return Container(
       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
             width: 1,
           ),
         ),
@@ -54,9 +54,9 @@ class AppHeader extends ConsumerWidget {
                 ),
               ],
             ),
-            
+
             const Spacer(),
-            
+
             // Search Bar
             Expanded(
               flex: 2,
@@ -73,14 +73,15 @@ class AppHeader extends ConsumerWidget {
                       borderSide: BorderSide.none,
                     ),
                     filled: true,
-                    fillColor: theme.colorScheme.surfaceVariant.withOpacity(0.5),
+                    fillColor: theme.colorScheme.surfaceContainerHighest
+                        .withValues(alpha: 0.65),
                   ),
                 ),
               ),
             ),
-            
+
             const Spacer(),
-            
+
             // Action Buttons
             Row(
               children: [
@@ -105,9 +106,9 @@ class AppHeader extends ConsumerWidget {
                     ],
                   ),
                 ),
-                
+
                 const SizedBox(width: 8),
-                
+
                 // Wallet Connection Status
                 _buildWalletButton(context, theme),
               ],
@@ -119,23 +120,19 @@ class AppHeader extends ConsumerWidget {
   }
 
   Widget _buildWalletButton(BuildContext context, ThemeData theme) {
-    // This would be connected to wallet state
-    final isConnected = false; // TODO: Connect to wallet provider
-    
+    // TODO: Connect to wallet provider
     return ElevatedButton.icon(
       onPressed: () => _connectWallet(context),
-      icon: Icon(
-        isConnected ? Icons.account_balance_wallet : Icons.wallet,
+      icon: const Icon(
+        Icons.wallet,
         size: 16,
       ),
-      label: Text(
-        isConnected ? '0x1234...5678' : 'Connect Wallet',
-        style: const TextStyle(fontSize: 12),
+      label: const Text(
+        'Connect Wallet',
+        style: TextStyle(fontSize: 12),
       ),
       style: ElevatedButton.styleFrom(
-        backgroundColor: isConnected 
-          ? theme.colorScheme.secondary 
-          : theme.colorScheme.primary,
+        backgroundColor: theme.colorScheme.primary,
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
         minimumSize: Size.zero,

@@ -30,30 +30,30 @@ class _DaoPageState extends ConsumerState<DaoPage>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       body: Column(
         children: [
           // DAO Header
           _buildDaoHeader(theme),
-          
+
           // Governance Stats
           const Padding(
             padding: EdgeInsets.all(16),
             child: GovernanceStats(),
           ),
-          
+
           // Voting Power
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16),
             child: VotingPowerCard(),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Tab Bar
           _buildTabBar(theme),
-          
+
           // Tab Views
           Expanded(
             child: TabBarView(
@@ -99,7 +99,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(
@@ -123,7 +123,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
                       Text(
                         'Decentralized Governance',
                         style: theme.textTheme.bodyLarge?.copyWith(
-                          color: Colors.white.withOpacity(0.9),
+                          color: Colors.white.withValues(alpha: 0.8),
                         ),
                       ),
                     ],
@@ -139,13 +139,13 @@ class _DaoPageState extends ConsumerState<DaoPage>
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1),
+                color: Colors.white.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
                 'Participate in governance by staking ZDATA tokens and voting on proposals that shape the future of the marketplace.',
                 style: TextStyle(
-                  color: Colors.white.withOpacity(0.9),
+                  color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 14,
                 ),
               ),
@@ -160,7 +160,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(12),
       ),
       child: TabBar(
@@ -172,7 +172,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
         ),
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
-        unselectedLabelColor: theme.colorScheme.onSurface.withOpacity(0.7),
+        unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.7),
         tabs: const [
           Tab(text: 'Active'),
           Tab(text: 'Past'),
@@ -184,7 +184,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
 
   Widget _buildActiveProposalsTab() {
     final proposals = _getMockActiveProposals();
-    
+
     if (proposals.isEmpty) {
       return _buildEmptyState(
         'No Active Proposals',
@@ -192,7 +192,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
         Icons.how_to_vote,
       );
     }
-    
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: proposals.length,
@@ -210,7 +210,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
 
   Widget _buildPastProposalsTab() {
     final proposals = _getMockPastProposals();
-    
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: proposals.length,
@@ -228,7 +228,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
 
   Widget _buildTreasuryTab() {
     final theme = Theme.of(context);
-    
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -251,11 +251,13 @@ class _DaoPageState extends ConsumerState<DaoPage>
                   Row(
                     children: [
                       Expanded(
-                        child: _buildTreasuryMetric(theme, 'Total Value', '\$2.5M', Icons.account_balance),
+                        child: _buildTreasuryMetric(theme, 'Total Value',
+                            '\$2.5M', Icons.account_balance),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: _buildTreasuryMetric(theme, 'Monthly Revenue', '\$150K', Icons.trending_up),
+                        child: _buildTreasuryMetric(theme, 'Monthly Revenue',
+                            '\$150K', Icons.trending_up),
                       ),
                     ],
                   ),
@@ -263,9 +265,9 @@ class _DaoPageState extends ConsumerState<DaoPage>
               ),
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Treasury Holdings
           Card(
             child: Padding(
@@ -280,16 +282,19 @@ class _DaoPageState extends ConsumerState<DaoPage>
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _buildHoldingItem(theme, 'SOL', '5,000', '\$500K', Colors.purple),
-                  _buildHoldingItem(theme, 'USDC', '1,500,000', '\$1.5M', Colors.blue),
-                  _buildHoldingItem(theme, 'ZDATA', '2,000,000', '\$500K', Colors.green),
+                  _buildHoldingItem(
+                      theme, 'SOL', '5,000', '\$500K', Colors.purple),
+                  _buildHoldingItem(
+                      theme, 'USDC', '1,500,000', '\$1.5M', Colors.blue),
+                  _buildHoldingItem(
+                      theme, 'ZDATA', '2,000,000', '\$500K', Colors.green),
                 ],
               ),
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Recent Transactions
           Card(
             child: Padding(
@@ -304,16 +309,28 @@ class _DaoPageState extends ConsumerState<DaoPage>
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _buildTreasuryTransaction(theme, 'Platform Fee Collection', '+\$25K', DateTime.now().subtract(const Duration(hours: 2))),
-                  _buildTreasuryTransaction(theme, 'Development Grant', '-\$50K', DateTime.now().subtract(const Duration(days: 1))),
-                  _buildTreasuryTransaction(theme, 'Marketing Campaign', '-\$15K', DateTime.now().subtract(const Duration(days: 3))),
+                  _buildTreasuryTransaction(
+                      theme,
+                      'Platform Fee Collection',
+                      '+\$25K',
+                      DateTime.now().subtract(const Duration(hours: 2))),
+                  _buildTreasuryTransaction(
+                      theme,
+                      'Development Grant',
+                      '-\$50K',
+                      DateTime.now().subtract(const Duration(days: 1))),
+                  _buildTreasuryTransaction(
+                      theme,
+                      'Marketing Campaign',
+                      '-\$15K',
+                      DateTime.now().subtract(const Duration(days: 3))),
                 ],
               ),
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Allocation Chart
           Card(
             child: Padding(
@@ -331,7 +348,8 @@ class _DaoPageState extends ConsumerState<DaoPage>
                   Container(
                     height: 200,
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+                      color: theme.colorScheme.surfaceContainerHighest
+                          .withValues(alpha: 0.3),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Center(
@@ -341,10 +359,18 @@ class _DaoPageState extends ConsumerState<DaoPage>
                   const SizedBox(height: 16),
                   Row(
                     children: [
-                      Expanded(child: _buildAllocationItem(theme, 'Development', '40%', Colors.blue)),
-                      Expanded(child: _buildAllocationItem(theme, 'Marketing', '25%', Colors.green)),
-                      Expanded(child: _buildAllocationItem(theme, 'Operations', '20%', Colors.orange)),
-                      Expanded(child: _buildAllocationItem(theme, 'Reserve', '15%', Colors.purple)),
+                      Expanded(
+                          child: _buildAllocationItem(
+                              theme, 'Development', '40%', Colors.blue)),
+                      Expanded(
+                          child: _buildAllocationItem(
+                              theme, 'Marketing', '25%', Colors.green)),
+                      Expanded(
+                          child: _buildAllocationItem(
+                              theme, 'Operations', '20%', Colors.orange)),
+                      Expanded(
+                          child: _buildAllocationItem(
+                              theme, 'Reserve', '15%', Colors.purple)),
                     ],
                   ),
                 ],
@@ -358,7 +384,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
 
   Widget _buildEmptyState(String title, String subtitle, IconData icon) {
     final theme = Theme.of(context);
-    
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -366,20 +392,20 @@ class _DaoPageState extends ConsumerState<DaoPage>
           Icon(
             icon,
             size: 64,
-            color: theme.colorScheme.onSurface.withOpacity(0.3),
+            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
           ),
           const SizedBox(height: 16),
           Text(
             title,
             style: theme.textTheme.headlineSmall?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
           const SizedBox(height: 8),
           Text(
             subtitle,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.5),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
             ),
             textAlign: TextAlign.center,
           ),
@@ -388,7 +414,8 @@ class _DaoPageState extends ConsumerState<DaoPage>
     );
   }
 
-  Widget _buildTreasuryMetric(ThemeData theme, String title, String value, IconData icon) {
+  Widget _buildTreasuryMetric(
+      ThemeData theme, String title, String value, IconData icon) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -399,7 +426,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
             Text(
               title,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
           ],
@@ -416,7 +443,8 @@ class _DaoPageState extends ConsumerState<DaoPage>
     );
   }
 
-  Widget _buildHoldingItem(ThemeData theme, String symbol, String amount, String value, Color color) {
+  Widget _buildHoldingItem(ThemeData theme, String symbol, String amount,
+      String value, Color color) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -425,12 +453,15 @@ class _DaoPageState extends ConsumerState<DaoPage>
             width: 32,
             height: 32,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
-              symbol == 'SOL' ? Icons.currency_bitcoin : 
-              symbol == 'USDC' ? Icons.attach_money : Icons.data_usage,
+              symbol == 'SOL'
+                  ? Icons.currency_bitcoin
+                  : symbol == 'USDC'
+                      ? Icons.attach_money
+                      : Icons.data_usage,
               color: color,
               size: 16,
             ),
@@ -449,7 +480,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
                 Text(
                   '$amount ${symbol.toUpperCase()}',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                 ),
               ],
@@ -467,9 +498,10 @@ class _DaoPageState extends ConsumerState<DaoPage>
     );
   }
 
-  Widget _buildTreasuryTransaction(ThemeData theme, String description, String amount, DateTime date) {
+  Widget _buildTreasuryTransaction(
+      ThemeData theme, String description, String amount, DateTime date) {
     final isIncoming = amount.startsWith('+');
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -493,7 +525,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
                 Text(
                   '${date.day}/${date.month}/${date.year}',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                 ),
               ],
@@ -511,7 +543,8 @@ class _DaoPageState extends ConsumerState<DaoPage>
     );
   }
 
-  Widget _buildAllocationItem(ThemeData theme, String category, String percentage, Color color) {
+  Widget _buildAllocationItem(
+      ThemeData theme, String category, String percentage, Color color) {
     return Column(
       children: [
         Container(
@@ -544,7 +577,8 @@ class _DaoPageState extends ConsumerState<DaoPage>
       {
         'id': '1',
         'title': 'Reduce Platform Fee to 2%',
-        'description': 'Proposal to reduce the platform fee from 2.5% to 2% to attract more sellers and increase marketplace activity.',
+        'description':
+            'Proposal to reduce the platform fee from 2.5% to 2% to attract more sellers and increase marketplace activity.',
         'proposer': 'Community Member',
         'votesFor': 1250000,
         'votesAgainst': 450000,
@@ -555,7 +589,8 @@ class _DaoPageState extends ConsumerState<DaoPage>
       {
         'id': '2',
         'title': 'Add New Data Categories',
-        'description': 'Proposal to add new data categories including Environmental, Social Media, and Financial data types.',
+        'description':
+            'Proposal to add new data categories including Environmental, Social Media, and Financial data types.',
         'proposer': 'Core Team',
         'votesFor': 890000,
         'votesAgainst': 210000,
@@ -571,7 +606,8 @@ class _DaoPageState extends ConsumerState<DaoPage>
       {
         'id': '3',
         'title': 'Implement Staking Rewards',
-        'description': 'Proposal to implement staking rewards for ZDATA token holders.',
+        'description':
+            'Proposal to implement staking rewards for ZDATA token holders.',
         'proposer': 'Community Member',
         'votesFor': 2100000,
         'votesAgainst': 300000,
@@ -582,7 +618,8 @@ class _DaoPageState extends ConsumerState<DaoPage>
       {
         'id': '4',
         'title': 'Increase Marketing Budget',
-        'description': 'Proposal to allocate additional funds for marketing and user acquisition.',
+        'description':
+            'Proposal to allocate additional funds for marketing and user acquisition.',
         'proposer': 'Core Team',
         'votesFor': 750000,
         'votesAgainst': 1250000,
