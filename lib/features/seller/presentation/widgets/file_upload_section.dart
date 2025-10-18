@@ -15,7 +15,7 @@ class FileUploadSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Column(
       children: [
         // Upload Area
@@ -33,7 +33,7 @@ class FileUploadSection extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               color: selectedFile != null
                   ? theme.colorScheme.primary.withOpacity(0.05)
-                  : theme.colorScheme.surfaceVariant.withOpacity(0.3),
+                  : theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
             ),
             child: InkWell(
               onTap: _pickFile,
@@ -44,14 +44,14 @@ class FileUploadSection extends StatelessWidget {
             ),
           ),
         ),
-        
+
         const SizedBox(height: 16),
-        
+
         // File Requirements
         _buildFileRequirements(theme),
-        
+
         const SizedBox(height: 16),
-        
+
         // Action Buttons
         if (selectedFile != null) _buildActionButtons(theme),
       ],
@@ -93,8 +93,9 @@ class FileUploadSection extends StatelessWidget {
   }
 
   Widget _buildSelectedFileView(ThemeData theme) {
-    final fileSizeInMB = (selectedFile!.size / (1024 * 1024)).toStringAsFixed(2);
-    
+    final fileSizeInMB =
+        (selectedFile!.size / (1024 * 1024)).toStringAsFixed(2);
+
     return Padding(
       padding: const EdgeInsets.all(24),
       child: Column(
@@ -295,13 +296,13 @@ class FileUploadSection extends StatelessWidget {
 
       if (result != null && result.files.isNotEmpty) {
         final file = result.files.first;
-        
+
         // Validate file size
         if (file.size > AppConstants.maxFileSize) {
           // Show error - file too large
           return;
         }
-        
+
         onFileSelected(file);
       }
     } catch (e) {
