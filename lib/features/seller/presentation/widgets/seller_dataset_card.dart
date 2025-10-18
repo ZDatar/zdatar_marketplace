@@ -18,7 +18,7 @@ class SellerDatasetCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -33,7 +33,7 @@ class SellerDatasetCard extends StatelessWidget {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: theme.colorScheme.primary.withOpacity(0.1),
+                    color: theme.colorScheme.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Center(
@@ -43,9 +43,9 @@ class SellerDatasetCard extends StatelessWidget {
                     ),
                   ),
                 ),
-                
+
                 const SizedBox(width: 12),
-                
+
                 // Title and Status
                 Expanded(
                   child: Column(
@@ -67,7 +67,8 @@ class SellerDatasetCard extends StatelessWidget {
                           Text(
                             dataset.category.displayName,
                             style: theme.textTheme.bodySmall?.copyWith(
-                              color: theme.colorScheme.onSurface.withOpacity(0.7),
+                              color:
+                                  theme.colorScheme.onSurface.withValues(alpha: 0.7),
                             ),
                           ),
                         ],
@@ -75,7 +76,7 @@ class SellerDatasetCard extends StatelessWidget {
                     ],
                   ),
                 ),
-                
+
                 // Actions Menu
                 PopupMenuButton<String>(
                   onSelected: _handleMenuAction,
@@ -125,36 +126,38 @@ class SellerDatasetCard extends StatelessWidget {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 12),
-            
+
             // Description
             Text(
               dataset.description,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
-            
+
             const SizedBox(height: 12),
-            
+
             // Stats Row
             Row(
               children: [
-                _buildStatItem(theme, Icons.attach_money, dataset.formattedPrice),
+                _buildStatItem(
+                    theme, Icons.attach_money, dataset.formattedPrice),
                 const SizedBox(width: 16),
-                _buildStatItem(theme, Icons.shopping_cart, '${dataset.totalSales} sales'),
+                _buildStatItem(
+                    theme, Icons.shopping_cart, '${dataset.totalSales} sales'),
                 const SizedBox(width: 16),
                 _buildStatItem(theme, Icons.star, '${dataset.rating}'),
                 const SizedBox(width: 16),
                 _buildStatItem(theme, Icons.storage, dataset.formattedFileSize),
               ],
             ),
-            
+
             const SizedBox(height: 12),
-            
+
             // Tags
             if (dataset.tags.isNotEmpty)
               Wrap(
@@ -162,9 +165,10 @@ class SellerDatasetCard extends StatelessWidget {
                 runSpacing: 6,
                 children: dataset.tags.take(3).map((tag) {
                   return Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceVariant,
+                      color: theme.colorScheme.surfaceContainerHighest,
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
@@ -174,16 +178,16 @@ class SellerDatasetCard extends StatelessWidget {
                   );
                 }).toList(),
               ),
-            
+
             const SizedBox(height: 12),
-            
+
             // Footer Row
             Row(
               children: [
                 Text(
                   'Updated ${_getRelativeTime(dataset.updatedAt)}',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.5),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
                   ),
                 ),
                 const Spacer(),
@@ -211,7 +215,7 @@ class SellerDatasetCard extends StatelessWidget {
   Widget _buildStatusChip(ThemeData theme) {
     Color color;
     String text;
-    
+
     switch (dataset.status) {
       case DatasetStatus.active:
         color = theme.colorScheme.secondary;
@@ -233,11 +237,11 @@ class SellerDatasetCard extends StatelessWidget {
         color = theme.colorScheme.outline;
         text = 'Unknown';
     }
-    
+
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Text(
@@ -258,13 +262,13 @@ class SellerDatasetCard extends StatelessWidget {
         Icon(
           icon,
           size: 14,
-          color: theme.colorScheme.onSurface.withOpacity(0.7),
+          color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
         ),
         const SizedBox(width: 4),
         Text(
           value,
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
       ],
@@ -274,7 +278,7 @@ class SellerDatasetCard extends StatelessWidget {
   String _getRelativeTime(DateTime dateTime) {
     final now = DateTime.now();
     final difference = now.difference(dateTime);
-    
+
     if (difference.inDays > 0) {
       return '${difference.inDays}d ago';
     } else if (difference.inHours > 0) {

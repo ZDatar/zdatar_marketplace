@@ -88,7 +88,7 @@ class _UploadDatasetPageState extends ConsumerState<UploadDatasetPage> {
           Text(
             'Select the data file you want to sell on the marketplace.',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
           const SizedBox(height: 24),
@@ -123,7 +123,7 @@ class _UploadDatasetPageState extends ConsumerState<UploadDatasetPage> {
           Text(
             'Provide details about your dataset to help buyers understand its value.',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
           const SizedBox(height: 24),
@@ -190,7 +190,7 @@ class _UploadDatasetPageState extends ConsumerState<UploadDatasetPage> {
           Text(
             'Determine the price for your dataset. Consider the data quality, size, and market demand.',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
           const SizedBox(height: 24),
@@ -226,7 +226,7 @@ class _UploadDatasetPageState extends ConsumerState<UploadDatasetPage> {
           Text(
             'Review your dataset details before publishing to the marketplace.',
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-              color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
+              color: Theme.of(context).colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
           const SizedBox(height: 24),
@@ -257,7 +257,7 @@ class _UploadDatasetPageState extends ConsumerState<UploadDatasetPage> {
         color: theme.colorScheme.surface,
         border: Border(
           top: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),

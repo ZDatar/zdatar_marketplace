@@ -36,7 +36,7 @@ class SellerStatsCard extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                      color: color.withOpacity(0.1),
+                      color: color.withValues(alpha: 0.2),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
@@ -50,7 +50,7 @@ class SellerStatsCard extends StatelessWidget {
                     Icon(
                       Icons.arrow_forward_ios,
                       size: 12,
-                      color: theme.colorScheme.onSurface.withOpacity(0.5),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
                     ),
                 ],
               ),
@@ -70,7 +70,7 @@ class SellerStatsCard extends StatelessWidget {
               Text(
                 title,
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
                 ),
               ),
               
@@ -79,7 +79,7 @@ class SellerStatsCard extends StatelessWidget {
                 Text(
                   subtitle!,
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.5),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
                   ),
                 ),
               ],

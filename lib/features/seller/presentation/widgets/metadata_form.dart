@@ -157,7 +157,7 @@ class MetadataForm extends StatelessWidget {
           onSelected: (selected) {
             onCategoryChanged(selected ? category : null);
           },
-          selectedColor: theme.colorScheme.primary.withOpacity(0.2),
+          selectedColor: theme.colorScheme.primary.withValues(alpha: 0.3),
           checkmarkColor: theme.colorScheme.primary,
         );
       }).toList(),
@@ -199,7 +199,7 @@ class MetadataForm extends StatelessWidget {
         Text(
           'Add relevant tags to help buyers find your dataset',
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
           ),
         ),
       ],
@@ -284,7 +284,7 @@ class MetadataForm extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.1),
+              color: theme.colorScheme.primary.withValues(alpha: 0.3),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Row(

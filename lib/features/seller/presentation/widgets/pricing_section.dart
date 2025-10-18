@@ -144,7 +144,7 @@ class PricingSection extends StatelessWidget {
                   onCurrencyChanged(currency);
                 }
               },
-              selectedColor: theme.colorScheme.primary.withOpacity(0.2),
+              selectedColor: theme.colorScheme.primary.withValues(alpha: 0.2),
               checkmarkColor: theme.colorScheme.primary,
             );
           }).toList(),
@@ -153,7 +153,7 @@ class PricingSection extends StatelessWidget {
         Text(
           'Choose the currency for your dataset pricing',
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
       ],
@@ -249,7 +249,7 @@ class PricingSection extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: theme.colorScheme.secondary.withOpacity(0.1),
+                color: theme.colorScheme.secondary.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
@@ -330,7 +330,7 @@ class PricingSection extends StatelessWidget {
           Icon(
             icon,
             size: 16,
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
           const SizedBox(width: 8),
           Expanded(

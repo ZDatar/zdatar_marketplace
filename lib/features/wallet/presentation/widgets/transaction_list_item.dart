@@ -23,7 +23,7 @@ class TransactionListItem extends StatelessWidget {
           width: 40,
           height: 40,
           decoration: BoxDecoration(
-            color: _getStatusColor(transaction.status).withOpacity(0.1),
+            color: _getStatusColor(transaction.status).withValues(alpha: 0.2),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(
@@ -43,7 +43,7 @@ class TransactionListItem extends StatelessWidget {
             Text(
               _getTransactionSubtitle(),
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
               ),
             ),
             const SizedBox(height: 2),
@@ -54,7 +54,7 @@ class TransactionListItem extends StatelessWidget {
                 Text(
                   _getFormattedDate(),
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.5),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
                   ),
                 ),
               ],
@@ -78,7 +78,7 @@ class TransactionListItem extends StatelessWidget {
               Text(
                 'Fee: ${transaction.platformFee.toStringAsFixed(2)} ${transaction.currency}',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.5),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.2),
                 ),
               ),
           ],
@@ -94,7 +94,7 @@ class TransactionListItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.2),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Text(

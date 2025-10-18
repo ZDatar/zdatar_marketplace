@@ -26,14 +26,14 @@ class FileUploadSection extends StatelessWidget {
               border: Border.all(
                 color: selectedFile != null
                     ? theme.colorScheme.primary
-                    : theme.colorScheme.outline.withOpacity(0.3),
+                    : theme.colorScheme.outline.withValues(alpha: 0.3),
                 width: 2,
                 style: BorderStyle.solid,
               ),
               borderRadius: BorderRadius.circular(12),
               color: selectedFile != null
-                  ? theme.colorScheme.primary.withOpacity(0.05)
-                  : theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
+                  ? theme.colorScheme.primary.withValues(alpha: 0.05)
+                  : theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
             ),
             child: InkWell(
               onTap: _pickFile,
@@ -65,7 +65,7 @@ class FileUploadSection extends StatelessWidget {
         Icon(
           Icons.cloud_upload_outlined,
           size: 64,
-          color: theme.colorScheme.primary.withOpacity(0.7),
+          color: theme.colorScheme.primary.withValues(alpha: 0.7),
         ),
         const SizedBox(height: 16),
         Text(
@@ -79,7 +79,7 @@ class FileUploadSection extends StatelessWidget {
         Text(
           'Click to browse and select your data file',
           style: theme.textTheme.bodyLarge?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
         const SizedBox(height: 16),
@@ -105,7 +105,7 @@ class FileUploadSection extends StatelessWidget {
             width: 80,
             height: 80,
             decoration: BoxDecoration(
-              color: theme.colorScheme.primary.withOpacity(0.1),
+              color: theme.colorScheme.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Icon(
@@ -131,26 +131,26 @@ class FileUploadSection extends StatelessWidget {
               Icon(
                 Icons.storage,
                 size: 16,
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
               const SizedBox(width: 4),
               Text(
                 '${fileSizeInMB}MB',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
               const SizedBox(width: 16),
               Icon(
                 Icons.description,
                 size: 16,
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
               const SizedBox(width: 4),
               Text(
                 selectedFile!.extension?.toUpperCase() ?? 'Unknown',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
             ],
@@ -159,7 +159,7 @@ class FileUploadSection extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: theme.colorScheme.secondary.withOpacity(0.1),
+              color: theme.colorScheme.secondary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
             ),
             child: Row(
@@ -244,14 +244,14 @@ class FileUploadSection extends StatelessWidget {
           Icon(
             icon,
             size: 16,
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
           const SizedBox(width: 8),
           Expanded(
             child: Text(
               text,
               style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
           ),
@@ -306,8 +306,8 @@ class FileUploadSection extends StatelessWidget {
         onFileSelected(file);
       }
     } catch (e) {
-      // Handle error
-      print('Error picking file: $e');
+      // Handle error - in production, this should use proper logging
+      // For now, we'll silently handle the error
     }
   }
 

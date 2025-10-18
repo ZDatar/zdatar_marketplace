@@ -31,22 +31,22 @@ class _WalletPageState extends ConsumerState<WalletPage>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       body: Column(
         children: [
           // Wallet Header
           _buildWalletHeader(theme),
-          
+
           // Balance Cards
           _buildBalanceSection(),
-          
+
           // Quick Actions
           _buildQuickActions(),
-          
+
           // Tab Bar
           _buildTabBar(theme),
-          
+
           // Tab Views
           Expanded(
             child: TabBarView(
@@ -101,9 +101,10 @@ class _WalletPageState extends ConsumerState<WalletPage>
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
@@ -133,7 +134,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
                 Text(
                   '7xKX...sU',
                   style: TextStyle(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     fontSize: 14,
                     fontFamily: 'monospace',
                   ),
@@ -143,7 +144,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
                   icon: Icon(
                     Icons.copy,
                     size: 16,
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                   ),
                 ),
               ],
@@ -159,7 +160,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          Row(
+          const Row(
             children: [
               Expanded(
                 child: WalletBalanceCard(
@@ -170,7 +171,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
                   color: Colors.purple,
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: 12),
               Expanded(
                 child: WalletBalanceCard(
                   title: 'USDC',
@@ -185,7 +186,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
           const SizedBox(height: 12),
           Row(
             children: [
-              Expanded(
+              const Expanded(
                 child: WalletBalanceCard(
                   title: 'ZDATA',
                   balance: '5,000',
@@ -199,10 +200,16 @@ class _WalletPageState extends ConsumerState<WalletPage>
                 child: Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                    color: Theme.of(context)
+                        .colorScheme
+                        .surfaceContainerHighest
+                        .withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(12),
                     border: Border.all(
-                      color: Theme.of(context).colorScheme.outline.withOpacity(0.2),
+                      color: Theme.of(context)
+                          .colorScheme
+                          .outline
+                          .withValues(alpha: 0.2),
                     ),
                   ),
                   child: Column(
@@ -211,26 +218,29 @@ class _WalletPageState extends ConsumerState<WalletPage>
                       Text(
                         'Total Portfolio',
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface.withOpacity(0.7),
-                        ),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onSurface
+                                  .withValues(alpha: 0.7),
+                            ),
                       ),
                       const SizedBox(height: 8),
                       Text(
                         '\$3,000.00',
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                              fontWeight: FontWeight.bold,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
                       ),
                       const SizedBox(height: 4),
-                      Row(
+                      const Row(
                         children: [
                           Icon(
                             Icons.trending_up,
                             size: 14,
                             color: Colors.green,
                           ),
-                          const SizedBox(width: 4),
+                          SizedBox(width: 4),
                           Text(
                             '+5.2%',
                             style: TextStyle(
@@ -263,7 +273,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(12),
       ),
       child: TabBar(
@@ -275,7 +285,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
         ),
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
-        unselectedLabelColor: theme.colorScheme.onSurface.withOpacity(0.7),
+        unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.7),
         tabs: const [
           Tab(text: 'Transactions'),
           Tab(text: 'Earnings'),
@@ -287,7 +297,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
 
   Widget _buildTransactionsTab() {
     final transactions = _getMockTransactions();
-    
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: transactions.length,
@@ -305,7 +315,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
 
   Widget _buildEarningsTab() {
     final theme = Theme.of(context);
-    
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -328,11 +338,13 @@ class _WalletPageState extends ConsumerState<WalletPage>
                   Row(
                     children: [
                       Expanded(
-                        child: _buildEarningsMetric(theme, 'This Month', '\$450.00', '+12%'),
+                        child: _buildEarningsMetric(
+                            theme, 'This Month', '\$450.00', '+12%'),
                       ),
                       const SizedBox(width: 16),
                       Expanded(
-                        child: _buildEarningsMetric(theme, 'All Time', '\$2,450.00', '+8%'),
+                        child: _buildEarningsMetric(
+                            theme, 'All Time', '\$2,450.00', '+8%'),
                       ),
                     ],
                   ),
@@ -340,9 +352,9 @@ class _WalletPageState extends ConsumerState<WalletPage>
               ),
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Top Selling Datasets
           Card(
             child: Padding(
@@ -357,16 +369,19 @@ class _WalletPageState extends ConsumerState<WalletPage>
                     ),
                   ),
                   const SizedBox(height: 12),
-                  _buildEarningDatasetItem(theme, 'Urban Mobility Patterns', '\$1,200.00', 45),
-                  _buildEarningDatasetItem(theme, 'Fitness Tracking Data', '\$850.00', 32),
-                  _buildEarningDatasetItem(theme, 'App Usage Analytics', '\$400.00', 12),
+                  _buildEarningDatasetItem(
+                      theme, 'Urban Mobility Patterns', '\$1,200.00', 45),
+                  _buildEarningDatasetItem(
+                      theme, 'Fitness Tracking Data', '\$850.00', 32),
+                  _buildEarningDatasetItem(
+                      theme, 'App Usage Analytics', '\$400.00', 12),
                 ],
               ),
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Withdrawal History
           Card(
             child: Padding(
@@ -390,9 +405,12 @@ class _WalletPageState extends ConsumerState<WalletPage>
                     ],
                   ),
                   const SizedBox(height: 12),
-                  _buildWithdrawalItem(theme, '\$500.00', 'Completed', DateTime.now().subtract(const Duration(days: 7))),
-                  _buildWithdrawalItem(theme, '\$300.00', 'Completed', DateTime.now().subtract(const Duration(days: 21))),
-                  _buildWithdrawalItem(theme, '\$150.00', 'Completed', DateTime.now().subtract(const Duration(days: 35))),
+                  _buildWithdrawalItem(theme, '\$500.00', 'Completed',
+                      DateTime.now().subtract(const Duration(days: 7))),
+                  _buildWithdrawalItem(theme, '\$300.00', 'Completed',
+                      DateTime.now().subtract(const Duration(days: 21))),
+                  _buildWithdrawalItem(theme, '\$150.00', 'Completed',
+                      DateTime.now().subtract(const Duration(days: 35))),
                 ],
               ),
             ),
@@ -404,7 +422,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
 
   Widget _buildTokensTab() {
     final theme = Theme.of(context);
-    
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
@@ -424,16 +442,19 @@ class _WalletPageState extends ConsumerState<WalletPage>
                     ),
                   ),
                   const SizedBox(height: 16),
-                  _buildTokenItem(theme, 'SOL', '12.5', '\$1,250.00', '+5.2%', Colors.purple),
-                  _buildTokenItem(theme, 'USDC', '1,250.00', '\$1,250.00', '0.0%', Colors.blue),
-                  _buildTokenItem(theme, 'ZDATA', '5,000', '\$500.00', '+15.8%', Colors.green),
+                  _buildTokenItem(theme, 'SOL', '12.5', '\$1,250.00', '+5.2%',
+                      Colors.purple),
+                  _buildTokenItem(theme, 'USDC', '1,250.00', '\$1,250.00',
+                      '0.0%', Colors.blue),
+                  _buildTokenItem(theme, 'ZDATA', '5,000', '\$500.00', '+15.8%',
+                      Colors.green),
                 ],
               ),
             ),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Staking Rewards
           Card(
             child: Padding(
@@ -451,7 +472,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
                   Text(
                     'Stake your ZDATA tokens to earn rewards and participate in governance.',
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -464,7 +485,8 @@ class _WalletPageState extends ConsumerState<WalletPage>
                             Text(
                               'Available to Stake',
                               style: theme.textTheme.bodySmall?.copyWith(
-                                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                                color: theme.colorScheme.onSurface
+                                    .withValues(alpha: 0.7),
                               ),
                             ),
                             Text(
@@ -491,14 +513,15 @@ class _WalletPageState extends ConsumerState<WalletPage>
     );
   }
 
-  Widget _buildEarningsMetric(ThemeData theme, String title, String amount, String change) {
+  Widget _buildEarningsMetric(
+      ThemeData theme, String title, String amount, String change) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           title,
           style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurface.withOpacity(0.7),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
           ),
         ),
         const SizedBox(height: 4),
@@ -512,7 +535,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
         const SizedBox(height: 4),
         Row(
           children: [
-            Icon(
+            const Icon(
               Icons.trending_up,
               size: 14,
               color: Colors.green,
@@ -520,7 +543,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
             const SizedBox(width: 4),
             Text(
               change,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.green,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
@@ -532,7 +555,8 @@ class _WalletPageState extends ConsumerState<WalletPage>
     );
   }
 
-  Widget _buildEarningDatasetItem(ThemeData theme, String title, String earnings, int sales) {
+  Widget _buildEarningDatasetItem(
+      ThemeData theme, String title, String earnings, int sales) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -550,7 +574,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
                 Text(
                   '$sales sales',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                 ),
               ],
@@ -568,7 +592,8 @@ class _WalletPageState extends ConsumerState<WalletPage>
     );
   }
 
-  Widget _buildWithdrawalItem(ThemeData theme, String amount, String status, DateTime date) {
+  Widget _buildWithdrawalItem(
+      ThemeData theme, String amount, String status, DateTime date) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -586,7 +611,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
                 Text(
                   '${date.day}/${date.month}/${date.year}',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                 ),
               ],
@@ -595,12 +620,12 @@ class _WalletPageState extends ConsumerState<WalletPage>
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.1),
+              color: Colors.green.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Text(
               status,
-              style: TextStyle(
+              style: const TextStyle(
                 color: Colors.green,
                 fontSize: 12,
                 fontWeight: FontWeight.w600,
@@ -612,9 +637,10 @@ class _WalletPageState extends ConsumerState<WalletPage>
     );
   }
 
-  Widget _buildTokenItem(ThemeData theme, String symbol, String balance, String usdValue, String change, Color color) {
+  Widget _buildTokenItem(ThemeData theme, String symbol, String balance,
+      String usdValue, String change, Color color) {
     final isPositive = change.startsWith('+');
-    
+
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -623,12 +649,15 @@ class _WalletPageState extends ConsumerState<WalletPage>
             width: 40,
             height: 40,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(
-              symbol == 'SOL' ? Icons.currency_bitcoin : 
-              symbol == 'USDC' ? Icons.attach_money : Icons.data_usage,
+              symbol == 'SOL'
+                  ? Icons.currency_bitcoin
+                  : symbol == 'USDC'
+                      ? Icons.attach_money
+                      : Icons.data_usage,
               color: color,
             ),
           ),
@@ -646,7 +675,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
                 Text(
                   '$balance ${symbol.toUpperCase()}',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                 ),
               ],

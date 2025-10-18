@@ -6,7 +6,7 @@ class WalletActions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -56,7 +56,7 @@ class WalletActions extends StatelessWidget {
           width: 48,
           height: 48,
           decoration: BoxDecoration(
-            color: theme.colorScheme.primary.withOpacity(0.1),
+            color: theme.colorScheme.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: IconButton(
@@ -86,15 +86,15 @@ class WalletActions extends StatelessWidget {
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            TextField(
-              decoration: const InputDecoration(
+            const TextField(
+              decoration: InputDecoration(
                 labelText: 'Recipient Address',
                 hintText: 'Enter wallet address',
               ),
             ),
             const SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(
+            const TextField(
+              decoration: InputDecoration(
                 labelText: 'Amount',
                 hintText: 'Enter amount to send',
               ),
@@ -156,12 +156,12 @@ class WalletActions extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
                 children: [
-                  Expanded(
+                  const Expanded(
                     child: Text(
                       '7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU',
                       style: TextStyle(
@@ -173,7 +173,8 @@ class WalletActions extends StatelessWidget {
                   IconButton(
                     onPressed: () {
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Address copied to clipboard')),
+                        const SnackBar(
+                            content: Text('Address copied to clipboard')),
                       );
                     },
                     icon: const Icon(Icons.copy, size: 16),
@@ -213,15 +214,15 @@ class WalletActions extends StatelessWidget {
               onChanged: (value) {},
             ),
             const SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(
+            const TextField(
+              decoration: InputDecoration(
                 labelText: 'Amount',
                 hintText: 'Enter amount to swap',
               ),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 16),
-            Icon(Icons.swap_vert),
+            const Icon(Icons.swap_vert),
             const SizedBox(height: 16),
             DropdownButtonFormField<String>(
               decoration: const InputDecoration(

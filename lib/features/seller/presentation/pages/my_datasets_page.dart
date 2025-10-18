@@ -32,16 +32,16 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       body: Column(
         children: [
           // Header with Stats
           _buildHeader(theme),
-          
+
           // Tab Bar
           _buildTabBar(theme),
-          
+
           // Tab Views
           Expanded(
             child: TabBarView(
@@ -71,7 +71,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
         color: theme.colorScheme.surface,
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),
@@ -85,7 +85,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
             ),
           ),
           const SizedBox(height: 16),
-          
+
           // Stats Row
           Row(
             children: [
@@ -128,7 +128,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
         color: theme.colorScheme.surface,
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),
@@ -146,7 +146,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
 
   Widget _buildAllDatasetsTab() {
     final datasets = _getMockDatasets();
-    
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: datasets.length,
@@ -168,7 +168,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
     final activeDatasets = _getMockDatasets()
         .where((d) => d.status == DatasetStatus.active)
         .toList();
-    
+
     if (activeDatasets.isEmpty) {
       return _buildEmptyState(
         'No Active Datasets',
@@ -176,7 +176,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
         Icons.store,
       );
     }
-    
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: activeDatasets.length,
@@ -198,7 +198,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
     final draftDatasets = _getMockDatasets()
         .where((d) => d.status == DatasetStatus.draft)
         .toList();
-    
+
     if (draftDatasets.isEmpty) {
       return _buildEmptyState(
         'No Draft Datasets',
@@ -206,7 +206,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
         Icons.drafts,
       );
     }
-    
+
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: draftDatasets.length,
@@ -232,19 +232,19 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
         children: [
           // Performance Overview
           _buildPerformanceOverview(),
-          
+
           const SizedBox(height: 16),
-          
+
           // Top Performing Datasets
           _buildTopPerformingDatasets(),
-          
+
           const SizedBox(height: 16),
-          
+
           // Revenue Chart
           _buildRevenueChart(),
-          
+
           const SizedBox(height: 16),
-          
+
           // Category Performance
           _buildCategoryPerformance(),
         ],
@@ -254,7 +254,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
 
   Widget _buildEmptyState(String title, String subtitle, IconData icon) {
     final theme = Theme.of(context);
-    
+
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -262,20 +262,20 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
           Icon(
             icon,
             size: 64,
-            color: theme.colorScheme.onSurface.withOpacity(0.3),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
           ),
           const SizedBox(height: 16),
           Text(
             title,
             style: theme.textTheme.headlineSmall?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
           const SizedBox(height: 8),
           Text(
             subtitle,
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.5),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
             ),
             textAlign: TextAlign.center,
           ),
@@ -292,7 +292,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
 
   Widget _buildPerformanceOverview() {
     final theme = Theme.of(context);
-    
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -309,15 +309,18 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
             Row(
               children: [
                 Expanded(
-                  child: _buildMetricCard(theme, 'Views', '1,234', '+12%', Icons.visibility),
+                  child: _buildMetricCard(
+                      theme, 'Views', '1,234', '+12%', Icons.visibility),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: _buildMetricCard(theme, 'Downloads', '89', '+8%', Icons.download),
+                  child: _buildMetricCard(
+                      theme, 'Downloads', '89', '+8%', Icons.download),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: _buildMetricCard(theme, 'Revenue', '\$2,450', '+15%', Icons.trending_up),
+                  child: _buildMetricCard(
+                      theme, 'Revenue', '\$2,450', '+15%', Icons.trending_up),
                 ),
               ],
             ),
@@ -327,11 +330,12 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
     );
   }
 
-  Widget _buildMetricCard(ThemeData theme, String title, String value, String change, IconData icon) {
+  Widget _buildMetricCard(ThemeData theme, String title, String value,
+      String change, IconData icon) {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Column(
@@ -361,7 +365,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
           Text(
             title,
             style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ],
@@ -372,7 +376,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
   Widget _buildTopPerformingDatasets() {
     final theme = Theme.of(context);
     final topDatasets = _getMockDatasets().take(3).toList();
-    
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -406,11 +410,11 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
             width: 24,
             height: 24,
             decoration: BoxDecoration(
-              color: rank == 1 
-                ? Colors.amber 
-                : rank == 2 
-                  ? Colors.grey[400] 
-                  : Colors.brown[300],
+              color: rank == 1
+                  ? Colors.amber
+                  : rank == 2
+                      ? Colors.grey[400]
+                      : Colors.brown[300],
               shape: BoxShape.circle,
             ),
             child: Center(
@@ -440,7 +444,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
                 Text(
                   '${dataset.totalSales} sales • ${dataset.formattedPrice}',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                 ),
               ],
@@ -460,7 +464,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
 
   Widget _buildRevenueChart() {
     final theme = Theme.of(context);
-    
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -477,7 +481,8 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
             Container(
               height: 200,
               decoration: BoxDecoration(
-                color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+                color:
+                    theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Center(
@@ -492,7 +497,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
 
   Widget _buildCategoryPerformance() {
     final theme = Theme.of(context);
-    
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -515,7 +520,8 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
     );
   }
 
-  Widget _buildCategoryItem(ThemeData theme, DatasetCategory category, int sales, String revenue) {
+  Widget _buildCategoryItem(
+      ThemeData theme, DatasetCategory category, int sales, String revenue) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: Row(
@@ -533,7 +539,7 @@ class _MyDatasetsPageState extends ConsumerState<MyDatasetsPage>
           Text(
             '$sales sales',
             style: theme.textTheme.bodySmall?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
           const SizedBox(width: 16),
