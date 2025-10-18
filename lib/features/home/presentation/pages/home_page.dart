@@ -12,14 +12,14 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context);
-    
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Hero Section
           _buildHeroSection(context, theme),
-          
+
           // Main Content
           Padding(
             padding: const EdgeInsets.all(32),
@@ -28,19 +28,19 @@ class HomePage extends ConsumerWidget {
               children: [
                 // Quick Stats
                 _buildQuickStats(context, theme),
-                
+
                 const SizedBox(height: 48),
-                
+
                 // Categories
                 _buildCategoriesSection(context, theme),
-                
+
                 const SizedBox(height: 48),
-                
+
                 // Featured Datasets
                 _buildFeaturedSection(context, theme),
-                
+
                 const SizedBox(height: 48),
-                
+
                 // Trending Datasets
                 _buildTrendingSection(context, theme),
               ],
@@ -99,7 +99,8 @@ class HomePage extends ConsumerWidget {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           foregroundColor: theme.colorScheme.primary,
-                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 32, vertical: 16),
                           textStyle: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
@@ -112,7 +113,8 @@ class HomePage extends ConsumerWidget {
                         style: OutlinedButton.styleFrom(
                           foregroundColor: Colors.white,
                           side: const BorderSide(color: Colors.white, width: 2),
-                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 32, vertical: 16),
                           textStyle: theme.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.w600,
                           ),
@@ -124,9 +126,9 @@ class HomePage extends ConsumerWidget {
                 ],
               ),
             ),
-            
+
             const SizedBox(width: 64),
-            
+
             // Right side - Visual element
             Expanded(
               flex: 2,
@@ -265,7 +267,8 @@ class HomePage extends ConsumerWidget {
             return CategoryChip(
               category: category,
               onTap: () {
-                context.go('${AppRoutes.marketplace}?category=${category.name}');
+                context
+                    .go('${AppRoutes.marketplace}?category=${category.name}');
               },
             );
           }).toList(),
@@ -319,27 +322,38 @@ class HomePage extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Trending This Week',
-          style: theme.textTheme.titleLarge?.copyWith(
-            fontWeight: FontWeight.bold,
-          ),
+        Row(
+          children: [
+            Text(
+              'Trending This Week',
+              style: theme.textTheme.titleLarge?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const Spacer(),
+            TextButton(
+              onPressed: () => context.go(AppRoutes.marketplace),
+              child: const Text('View All'),
+            ),
+          ],
         ),
         const SizedBox(height: 12),
-        GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2,
-            childAspectRatio: 0.8,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
+        SizedBox(
+          height: 280,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: _getMockTrendingDatasets().length,
+            itemBuilder: (context, index) {
+              final dataset = _getMockTrendingDatasets()[index];
+              return Container(
+                width: 300,
+                margin: EdgeInsets.only(
+                  right: index < _getMockTrendingDatasets().length - 1 ? 12 : 0,
+                ),
+                child: DatasetCard(dataset: dataset),
+              );
+            },
           ),
-          itemCount: _getMockTrendingDatasets().length,
-          itemBuilder: (context, index) {
-            final dataset = _getMockTrendingDatasets()[index];
-            return DatasetCard(dataset: dataset);
-          },
         ),
       ],
     );
@@ -374,7 +388,8 @@ class HomePage extends ConsumerWidget {
       Dataset(
         id: '2',
         title: 'Fitness Tracking Data',
-        description: 'Heart rate, steps, and activity data from fitness enthusiasts',
+        description:
+            'Heart rate, steps, and activity data from fitness enthusiasts',
         sellerId: 'seller2',
         category: DatasetCategory.health,
         tags: ['fitness', 'health', 'activity'],
