@@ -7,13 +7,13 @@ class AppTheme {
   static const Color accentColor = Color(0xFFF59E0B); // Amber
   static const Color errorColor = Color(0xFFEF4444); // Red
   static const Color warningColor = Color(0xFFF97316); // Orange
-  
+
   // Light Theme Colors
   static const Color lightBackground = Color(0xFFFAFAFA);
   static const Color lightSurface = Color(0xFFFFFFFF);
   static const Color lightOnSurface = Color(0xFF1F2937);
   static const Color lightOnBackground = Color(0xFF374151);
-  
+
   // Dark Theme Colors
   static const Color darkBackground = Color(0xFF111827);
   static const Color darkSurface = Color(0xFF1F2937);
@@ -29,10 +29,8 @@ class AppTheme {
         secondary: secondaryColor,
         tertiary: accentColor,
         error: errorColor,
-        background: lightBackground,
         surface: lightSurface,
         onSurface: lightOnSurface,
-        onBackground: lightOnBackground,
       ),
       fontFamily: 'Inter',
       appBarTheme: const AppBarTheme(
@@ -86,10 +84,8 @@ class AppTheme {
         secondary: secondaryColor,
         tertiary: accentColor,
         error: errorColor,
-        background: darkBackground,
         surface: darkSurface,
         onSurface: darkOnSurface,
-        onBackground: darkOnBackground,
       ),
       fontFamily: 'Inter',
       appBarTheme: const AppBarTheme(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../core/router/app_router.dart';
+import 'error_boundary.dart';
 
 class MainScaffold extends StatelessWidget {
   final Widget child;
@@ -15,11 +16,25 @@ class MainScaffold extends StatelessWidget {
     final theme = Theme.of(context);
     
     return Scaffold(
-      body: Column(
-        children: [
-          _buildWebNavigationBar(context, theme),
-          Expanded(child: child),
-        ],
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
+            children: [
+              _buildWebNavigationBar(context, theme),
+              Expanded(
+                child: ErrorBoundary(
+                  child: ConstrainedBox(
+                    constraints: BoxConstraints(
+                      minHeight: 0,
+                      maxHeight: constraints.maxHeight - 80, // Subtract nav bar height
+                    ),
+                    child: child,
+                  ),
+                ),
+              ),
+            ],
+          );
+        },
       ),
     );
   }
@@ -114,38 +129,41 @@ class MainScaffold extends StatelessWidget {
         
         return Padding(
           padding: const EdgeInsets.only(right: 32),
-          child: InkWell(
-            onTap: () => context.go(item['route'] as String),
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              decoration: BoxDecoration(
-                color: isSelected 
-                  ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                  : Colors.transparent,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Icon(
-                    item['icon'] as IconData,
-                    size: 20,
-                    color: isSelected 
-                      ? theme.colorScheme.primary
-                      : theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                  ),
-                  const SizedBox(width: 8),
-                  Text(
-                    item['label'] as String,
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () => context.go(item['route'] as String),
+              borderRadius: BorderRadius.circular(8),
+              child: Container(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                decoration: BoxDecoration(
+                  color: isSelected 
+                    ? theme.colorScheme.primary.withValues(alpha: 0.1)
+                    : Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      item['icon'] as IconData,
+                      size: 20,
                       color: isSelected 
                         ? theme.colorScheme.primary
                         : theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
-                  ),
-                ],
+                    const SizedBox(width: 8),
+                    Text(
+                      item['label'] as String,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
+                        color: isSelected 
+                          ? theme.colorScheme.primary
+                          : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -181,24 +199,27 @@ class MainScaffold extends StatelessWidget {
     required String label,
     required VoidCallback onTap,
   }) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: theme.colorScheme.outline.withValues(alpha: 0.3),
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(8),
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
+            ),
+            borderRadius: BorderRadius.circular(8),
           ),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 18),
-            const SizedBox(width: 6),
-            Text(label, style: theme.textTheme.bodySmall),
-          ],
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(icon, size: 18),
+              const SizedBox(width: 6),
+              Text(label, style: theme.textTheme.bodySmall),
+            ],
+          ),
         ),
       ),
     );
@@ -207,6 +228,10 @@ class MainScaffold extends StatelessWidget {
   Widget _buildProfileMenu(BuildContext context, ThemeData theme) {
     return PopupMenuButton<String>(
       offset: const Offset(0, 50),
+      constraints: const BoxConstraints(
+        minWidth: 200,
+        maxWidth: 300,
+      ),
       child: Container(
         padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(

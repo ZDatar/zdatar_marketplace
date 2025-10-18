@@ -20,6 +20,21 @@ class DatasetDetailPage extends ConsumerWidget {
 
     // In a real app, this would fetch from a provider
     final dataset = _getMockDataset(datasetId);
+    if (dataset == null) {
+      return Scaffold(
+        appBar: AppBar(title: const Text('Dataset Not Found')),
+        body: const Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.error_outline, size: 64),
+              SizedBox(height: 16),
+              Text('Dataset not found'),
+            ],
+          ),
+        ),
+      );
+    }
     final seller = _getMockSeller(dataset.sellerId);
 
     return Scaffold(
@@ -36,19 +51,25 @@ class DatasetDetailPage extends ConsumerWidget {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Hero Section
-            _buildHeroSection(context, theme, dataset),
-
-            // Content
-            Padding(
-              padding: const EdgeInsets.all(16),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                minHeight: constraints.maxHeight,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  // Hero Section
+                  _buildHeroSection(context, theme, dataset),
+
+                  // Content
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
                   // Overview Section
                   _buildOverviewSection(context, theme, dataset),
 
@@ -70,13 +91,16 @@ class DatasetDetailPage extends ConsumerWidget {
 
                   const SizedBox(height: 24),
 
-                  // Related Datasets
-                  _buildRelatedSection(context, theme),
+                        // Related Datasets
+                        _buildRelatedSection(context, theme),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-          ],
-        ),
+          );
+        },
       ),
       bottomNavigationBar: _buildBottomBar(context, theme, dataset),
     );
@@ -97,10 +121,43 @@ class DatasetDetailPage extends ConsumerWidget {
           ],
         ),
       ),
-      child: dataset.previewImageUrl != null
+      child: dataset.previewImageUrl != null && dataset.previewImageUrl!.isNotEmpty
           ? CachedNetworkImage(
               imageUrl: dataset.previewImageUrl!,
               fit: BoxFit.cover,
+              errorWidget: (context, url, error) => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      dataset.category.icon,
+                      style: const TextStyle(fontSize: 48),
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      dataset.category.displayName,
+                      style: theme.textTheme.titleLarge?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              placeholder: (context, url) => Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const CircularProgressIndicator(),
+                    const SizedBox(height: 8),
+                    Text(
+                      'Loading...',
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             )
           : Center(
               child: Column(
@@ -166,21 +223,24 @@ class DatasetDetailPage extends ConsumerWidget {
         const SizedBox(height: 12),
 
         // Stats Row
-        Row(
-          children: [
-            _buildStatChip(
-                theme, Icons.star, '${dataset.rating}', Colors.amber),
-            const SizedBox(width: 8),
-            _buildStatChip(theme, Icons.shopping_cart, '${dataset.totalSales}',
-                theme.colorScheme.secondary),
-            const SizedBox(width: 8),
-            _buildStatChip(theme, Icons.storage, dataset.formattedFileSize,
-                theme.colorScheme.tertiary),
-            const SizedBox(width: 8),
-            if (dataset.region != null)
-              _buildStatChip(theme, Icons.location_on, dataset.region!,
-                  theme.colorScheme.primary),
-          ],
+        SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            children: [
+              _buildStatChip(
+                  theme, Icons.star, '${dataset.rating}', Colors.amber),
+              const SizedBox(width: 8),
+              _buildStatChip(theme, Icons.shopping_cart, '${dataset.totalSales}',
+                  theme.colorScheme.secondary),
+              const SizedBox(width: 8),
+              _buildStatChip(theme, Icons.storage, dataset.formattedFileSize,
+                  theme.colorScheme.tertiary),
+              const SizedBox(width: 8),
+              if (dataset.region != null)
+                _buildStatChip(theme, Icons.location_on, dataset.region!,
+                    theme.colorScheme.primary),
+            ],
+          ),
         ),
 
         const SizedBox(height: 16),
@@ -215,26 +275,31 @@ class DatasetDetailPage extends ConsumerWidget {
 
   Widget _buildStatChip(
       ThemeData theme, IconData icon, String label, Color color) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: color.withValues(alpha: 0.1),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: color),
-          const SizedBox(width: 4),
-          Text(
-            label,
-            style: TextStyle(
-              color: color,
-              fontWeight: FontWeight.w600,
-              fontSize: 12,
+    return IntrinsicWidth(
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: color.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 14, color: color),
+            const SizedBox(width: 4),
+            Flexible(
+              child: Text(
+                label,
+                style: TextStyle(
+                  color: color,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                ),
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -319,21 +384,54 @@ class DatasetDetailPage extends ConsumerWidget {
             // Sample chart
             SizedBox(
               height: 200,
-              child: LineChart(
-                LineChartData(
-                  gridData: const FlGridData(show: false),
-                  titlesData: const FlTitlesData(show: false),
-                  borderData: FlBorderData(show: false),
-                  lineBarsData: [
-                    LineChartBarData(
-                      spots: _generateSampleData(),
-                      isCurved: true,
-                      color: theme.colorScheme.primary,
-                      barWidth: 2,
-                      dotData: const FlDotData(show: false),
-                    ),
-                  ],
-                ),
+              child: Builder(
+                builder: (context) {
+                  try {
+                    return LineChart(
+                      LineChartData(
+                        gridData: const FlGridData(show: false),
+                        titlesData: const FlTitlesData(show: false),
+                        borderData: FlBorderData(show: false),
+                        lineBarsData: [
+                          LineChartBarData(
+                            spots: _generateSampleData(),
+                            isCurved: true,
+                            color: theme.colorScheme.primary,
+                            barWidth: 2,
+                            dotData: const FlDotData(show: false),
+                          ),
+                        ],
+                      ),
+                    );
+                  } catch (e) {
+                    return Container(
+                      height: 200,
+                      decoration: BoxDecoration(
+                        color: theme.colorScheme.surfaceContainerHighest,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              Icons.bar_chart,
+                              size: 48,
+                              color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Sample chart unavailable',
+                              style: theme.textTheme.bodyMedium?.copyWith(
+                                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }
+                },
               ),
             ),
           ],
@@ -540,33 +638,41 @@ class DatasetDetailPage extends ConsumerWidget {
                 width: 200,
                 margin: const EdgeInsets.only(right: 12),
                 child: Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Related Dataset ${index + 1}',
-                          style: theme.textTheme.titleSmall,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const SizedBox(height: 4),
-                        Text(
-                          'Brief description of the related dataset',
-                          style: theme.textTheme.bodySmall,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        const Spacer(),
-                        Text(
-                          '\$${(50 + index * 25).toStringAsFixed(2)} USDC',
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                            color: theme.colorScheme.primary,
+                  child: InkWell(
+                    onTap: () {
+                      // Navigate to related dataset
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            'Related Dataset ${index + 1}',
+                            style: theme.textTheme.titleSmall,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                      ],
+                          const SizedBox(height: 4),
+                          Expanded(
+                            child: Text(
+                              'Brief description of the related dataset',
+                              style: theme.textTheme.bodySmall,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            '\$${(50 + index * 25).toStringAsFixed(2)} USDC',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              fontWeight: FontWeight.bold,
+                              color: theme.colorScheme.primary,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -636,32 +742,90 @@ class DatasetDetailPage extends ConsumerWidget {
     });
   }
 
-  Dataset _getMockDataset(String id) {
-    return Dataset(
-      id: id,
-      title: 'Urban Mobility Patterns Dataset',
-      description:
-          'Comprehensive location and movement data collected from 1000+ users across Mumbai over a 3-month period. This dataset includes GPS coordinates, timestamps, transportation modes, and anonymized user demographics. Perfect for urban planning research, transportation optimization, and mobility behavior analysis.',
-      sellerId: 'seller1',
-      category: DatasetCategory.location,
-      tags: ['mobility', 'urban', 'transportation', 'gps', 'mumbai'],
-      price: 299.99,
-      currency: 'USDC',
-      fileSizeBytes: 50 * 1024 * 1024,
-      fileType: 'json',
-      dataStartDate: DateTime.now().subtract(const Duration(days: 90)),
-      dataEndDate: DateTime.now().subtract(const Duration(days: 1)),
-      region: 'Mumbai, India',
-      encryptedFileUrl: 'https://storage.zdatar.com/encrypted/1',
-      encryptionKeyHash: 'hash1',
-      status: DatasetStatus.active,
-      totalSales: 45,
-      rating: 4.8,
-      reviewCount: 23,
-      createdAt: DateTime.now().subtract(const Duration(days: 30)),
-      updatedAt: DateTime.now().subtract(const Duration(days: 1)),
-      hasSample: true,
-    );
+  Dataset? _getMockDataset(String id) {
+    // Mock datasets for different IDs
+    switch (id) {
+      case '1':
+        return Dataset(
+          id: id,
+          title: 'Urban Mobility Patterns Dataset',
+          description:
+              'Comprehensive location and movement data collected from 1000+ users across Mumbai over a 3-month period. This dataset includes GPS coordinates, timestamps, transportation modes, and anonymized user demographics. Perfect for urban planning research, transportation optimization, and mobility behavior analysis.',
+          sellerId: 'seller1',
+          category: DatasetCategory.location,
+          tags: ['mobility', 'urban', 'transportation', 'gps', 'mumbai'],
+          price: 299.99,
+          currency: 'USDC',
+          fileSizeBytes: 50 * 1024 * 1024,
+          fileType: 'json',
+          dataStartDate: DateTime.now().subtract(const Duration(days: 90)),
+          dataEndDate: DateTime.now().subtract(const Duration(days: 1)),
+          region: 'Mumbai, India',
+          encryptedFileUrl: 'https://storage.zdatar.com/encrypted/1',
+          encryptionKeyHash: 'hash1',
+          status: DatasetStatus.active,
+          totalSales: 45,
+          rating: 4.8,
+          reviewCount: 23,
+          createdAt: DateTime.now().subtract(const Duration(days: 30)),
+          updatedAt: DateTime.now().subtract(const Duration(days: 1)),
+          hasSample: true,
+        );
+      case '2':
+        return Dataset(
+          id: id,
+          title: 'Health & Fitness Tracking Data',
+          description:
+              'Anonymized health and fitness data from 500+ users including heart rate, steps, sleep patterns, and workout sessions over 6 months.',
+          sellerId: 'seller2',
+          category: DatasetCategory.health,
+          tags: ['health', 'fitness', 'heart-rate', 'sleep', 'workout'],
+          price: 199.99,
+          currency: 'USDC',
+          fileSizeBytes: 25 * 1024 * 1024,
+          fileType: 'csv',
+          dataStartDate: DateTime.now().subtract(const Duration(days: 180)),
+          dataEndDate: DateTime.now().subtract(const Duration(days: 1)),
+          region: 'Global',
+          encryptedFileUrl: 'https://storage.zdatar.com/encrypted/2',
+          encryptionKeyHash: 'hash2',
+          status: DatasetStatus.active,
+          totalSales: 32,
+          rating: 4.6,
+          reviewCount: 18,
+          createdAt: DateTime.now().subtract(const Duration(days: 45)),
+          updatedAt: DateTime.now().subtract(const Duration(days: 2)),
+          hasSample: true,
+        );
+      case '3':
+        return Dataset(
+          id: id,
+          title: 'Social Media Engagement Analytics',
+          description:
+              'Comprehensive social media engagement data including likes, shares, comments, and user interaction patterns from various platforms.',
+          sellerId: 'seller3',
+          category: DatasetCategory.appUsage,
+          tags: ['social-media', 'engagement', 'analytics', 'interactions'],
+          price: 149.99,
+          currency: 'USDC',
+          fileSizeBytes: 75 * 1024 * 1024,
+          fileType: 'json',
+          dataStartDate: DateTime.now().subtract(const Duration(days: 120)),
+          dataEndDate: DateTime.now().subtract(const Duration(days: 1)),
+          region: 'North America',
+          encryptedFileUrl: 'https://storage.zdatar.com/encrypted/3',
+          encryptionKeyHash: 'hash3',
+          status: DatasetStatus.active,
+          totalSales: 67,
+          rating: 4.7,
+          reviewCount: 34,
+          createdAt: DateTime.now().subtract(const Duration(days: 60)),
+          updatedAt: DateTime.now().subtract(const Duration(days: 1)),
+          hasSample: true,
+        );
+      default:
+        return null; // Dataset not found
+    }
   }
 
   User _getMockSeller(String sellerId) {
