@@ -22,7 +22,7 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Dialog(
       child: Container(
         width: 400,
@@ -47,29 +47,29 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
                 ),
               ],
             ),
-            
+
             const SizedBox(height: 16),
-            
+
             // Dataset Info
             _buildDatasetInfo(theme),
-            
+
             const SizedBox(height: 16),
-            
+
             // Wallet Selection
             _buildWalletSelection(theme),
-            
+
             const SizedBox(height: 16),
-            
+
             // Price Breakdown
             _buildPriceBreakdown(theme),
-            
+
             const SizedBox(height: 16),
-            
+
             // Terms and Conditions
             _buildTermsSection(theme),
-            
+
             const SizedBox(height: 24),
-            
+
             // Action Buttons
             _buildActionButtons(theme),
           ],
@@ -82,7 +82,7 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceVariant.withOpacity(0.3),
+        color: theme.colorScheme.surfaceContainerHighest.withOpacity(0.3),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
@@ -182,13 +182,15 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
   ) {
     final isConnected = balance != null;
     final isSelected = _selectedWallet == value;
-    
+
     return InkWell(
-      onTap: isConnected ? () {
-        setState(() {
-          _selectedWallet = value;
-        });
-      } : () => _connectWallet(value),
+      onTap: isConnected
+          ? () {
+              setState(() {
+                _selectedWallet = value;
+              });
+            }
+          : () => _connectWallet(value),
       child: Container(
         padding: const EdgeInsets.all(12),
         child: Row(
@@ -196,11 +198,13 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
             Radio<String>(
               value: value,
               groupValue: _selectedWallet,
-              onChanged: isConnected ? (val) {
-                setState(() {
-                  _selectedWallet = val;
-                });
-              } : null,
+              onChanged: isConnected
+                  ? (val) {
+                      setState(() {
+                        _selectedWallet = val;
+                      });
+                    }
+                  : null,
             ),
             Icon(icon, size: 20),
             const SizedBox(width: 12),
@@ -217,9 +221,9 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
                   Text(
                     status,
                     style: theme.textTheme.bodySmall?.copyWith(
-                      color: isConnected 
-                        ? theme.colorScheme.secondary
-                        : theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: isConnected
+                          ? theme.colorScheme.secondary
+                          : theme.colorScheme.onSurface.withOpacity(0.7),
                     ),
                   ),
                   if (balance != null)
@@ -246,7 +250,7 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
   Widget _buildPriceBreakdown(ThemeData theme) {
     final platformFee = widget.dataset.price * 0.025; // 2.5% platform fee
     final total = widget.dataset.price + platformFee;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -267,12 +271,14 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
           ),
           child: Column(
             children: [
-              _buildPriceRow(theme, 'Dataset Price', '${widget.dataset.price} ${widget.dataset.currency}'),
-              _buildPriceRow(theme, 'Platform Fee (2.5%)', '${platformFee.toStringAsFixed(2)} ${widget.dataset.currency}'),
+              _buildPriceRow(theme, 'Dataset Price',
+                  '${widget.dataset.price} ${widget.dataset.currency}'),
+              _buildPriceRow(theme, 'Platform Fee (2.5%)',
+                  '${platformFee.toStringAsFixed(2)} ${widget.dataset.currency}'),
               const Divider(),
               _buildPriceRow(
-                theme, 
-                'Total', 
+                theme,
+                'Total',
                 '${total.toStringAsFixed(2)} ${widget.dataset.currency}',
                 isTotal: true,
               ),
@@ -283,7 +289,8 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
     );
   }
 
-  Widget _buildPriceRow(ThemeData theme, String label, String amount, {bool isTotal = false}) {
+  Widget _buildPriceRow(ThemeData theme, String label, String amount,
+      {bool isTotal = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -356,8 +363,9 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
   }
 
   Widget _buildActionButtons(ThemeData theme) {
-    final canPurchase = _selectedWallet != null && _acceptedTerms && !_isProcessing;
-    
+    final canPurchase =
+        _selectedWallet != null && _acceptedTerms && !_isProcessing;
+
     return Row(
       children: [
         Expanded(
@@ -398,7 +406,7 @@ class _PurchaseDialogState extends ConsumerState<PurchaseDialog> {
     try {
       // Simulate blockchain transaction
       await Future.delayed(const Duration(seconds: 3));
-      
+
       if (mounted) {
         Navigator.of(context).pop();
         _showPurchaseSuccess();

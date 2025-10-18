@@ -14,41 +14,47 @@ class HomePage extends ConsumerWidget {
     final theme = Theme.of(context);
     
     return SingleChildScrollView(
-      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Welcome Section
-          _buildWelcomeSection(context, theme),
+          // Hero Section
+          _buildHeroSection(context, theme),
           
-          const SizedBox(height: 24),
-          
-          // Quick Stats
-          _buildQuickStats(context, theme),
-          
-          const SizedBox(height: 24),
-          
-          // Categories
-          _buildCategoriesSection(context, theme),
-          
-          const SizedBox(height: 24),
-          
-          // Featured Datasets
-          _buildFeaturedSection(context, theme),
-          
-          const SizedBox(height: 24),
-          
-          // Trending Datasets
-          _buildTrendingSection(context, theme),
+          // Main Content
+          Padding(
+            padding: const EdgeInsets.all(32),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Quick Stats
+                _buildQuickStats(context, theme),
+                
+                const SizedBox(height: 48),
+                
+                // Categories
+                _buildCategoriesSection(context, theme),
+                
+                const SizedBox(height: 48),
+                
+                // Featured Datasets
+                _buildFeaturedSection(context, theme),
+                
+                const SizedBox(height: 48),
+                
+                // Trending Datasets
+                _buildTrendingSection(context, theme),
+              ],
+            ),
+          ),
         ],
       ),
     );
   }
 
-  Widget _buildWelcomeSection(BuildContext context, ThemeData theme) {
+  Widget _buildHeroSection(BuildContext context, ThemeData theme) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(24),
+      height: 400,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
@@ -58,48 +64,92 @@ class HomePage extends ConsumerWidget {
             theme.colorScheme.secondary,
           ],
         ),
-        borderRadius: BorderRadius.circular(16),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Welcome to ZDatar Marketplace',
-            style: theme.textTheme.headlineMedium?.copyWith(
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            'Monetize your mobile data or discover valuable datasets from the community',
-            style: theme.textTheme.bodyLarge?.copyWith(
-              color: Colors.white.withOpacity(0.9),
-            ),
-          ),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              ElevatedButton(
-                onPressed: () => context.go(AppRoutes.marketplace),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: theme.colorScheme.primary,
-                ),
-                child: const Text('Browse Marketplace'),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 64, vertical: 80),
+        child: Row(
+          children: [
+            // Left side - Text content
+            Expanded(
+              flex: 3,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Welcome to ZDatar Marketplace',
+                    style: theme.textTheme.displayMedium?.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    'Discover, trade, and monetize high-quality AI datasets on the world\'s first decentralized data marketplace.',
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      color: Colors.white.withOpacity(0.9),
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  const SizedBox(height: 32),
+                  Row(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => context.go('/marketplace'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: theme.colorScheme.primary,
+                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                          textStyle: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        child: const Text('Explore Marketplace'),
+                      ),
+                      const SizedBox(width: 16),
+                      OutlinedButton(
+                        onPressed: () => context.go('/my-data'),
+                        style: OutlinedButton.styleFrom(
+                          foregroundColor: Colors.white,
+                          side: const BorderSide(color: Colors.white, width: 2),
+                          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+                          textStyle: theme.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        child: const Text('Start Selling'),
+                      ),
+                    ],
+                  ),
+                ],
               ),
-              const SizedBox(width: 12),
-              OutlinedButton(
-                onPressed: () => context.go(AppRoutes.uploadDataset),
-                style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  side: const BorderSide(color: Colors.white),
+            ),
+            
+            const SizedBox(width: 64),
+            
+            // Right side - Visual element
+            Expanded(
+              flex: 2,
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(
+                    color: Colors.white.withOpacity(0.2),
+                    width: 1,
+                  ),
                 ),
-                child: const Text('Sell Your Data'),
+                child: const Center(
+                  child: Icon(
+                    Icons.data_usage,
+                    size: 120,
+                    color: Colors.white,
+                  ),
+                ),
               ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

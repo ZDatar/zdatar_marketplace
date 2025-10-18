@@ -29,6 +29,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
   void _onScroll() {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
+      // Load more datasets
       ref.read(marketplaceNotifierProvider.notifier).loadMore();
     }
   }
@@ -50,14 +51,17 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
               color: theme.colorScheme.surface,
               border: Border(
                 right: BorderSide(
-                  color: theme.colorScheme.outline.withOpacity(0.2),
+                  color: theme.colorScheme.outline.withValues(alpha: 0.2),
                 ),
               ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                // Sidebar Header
                 _buildSidebarHeader(theme),
+                
+                // Filters
                 const Expanded(
                   child: SingleChildScrollView(
                     padding: EdgeInsets.all(24),
@@ -67,12 +71,15 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
               ],
             ),
           ),
-
+          
           // Main Content Area
           Expanded(
             child: Column(
               children: [
+                // Top Search and Controls Bar
                 _buildTopBar(context, theme, marketplaceState.datasets.length),
+                
+                // Dataset Grid
                 Expanded(
                   child: _buildDatasetGrid(context, theme, marketplaceState),
                 ),
@@ -90,7 +97,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),
@@ -107,7 +114,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
           Text(
             'Refine your search to find the perfect dataset',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurface.withOpacity(0.7),
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
             ),
           ),
         ],
@@ -122,26 +129,36 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         color: theme.colorScheme.surface,
         border: Border(
           bottom: BorderSide(
-            color: theme.colorScheme.outline.withOpacity(0.2),
+            color: theme.colorScheme.outline.withValues(alpha: 0.2),
           ),
         ),
       ),
       child: Row(
         children: [
+          // Search Bar
           Expanded(
             flex: 2,
             child: _buildSearchBar(theme),
           ),
+          
           const SizedBox(width: 24),
+          
+          // Results Count
           Text(
             '$datasetCount datasets found',
             style: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
             ),
           ),
+          
           const SizedBox(width: 24),
+          
+          // Sort Dropdown
           _buildSortDropdown(theme),
+          
           const SizedBox(width: 16),
+          
+          // View Mode Toggle
           _buildViewModeToggle(theme),
         ],
       ),
@@ -155,7 +172,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
         ),
       ),
       child: TextField(
@@ -166,11 +183,10 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
           hintText: 'Search datasets...',
           prefixIcon: Icon(
             Icons.search,
-            color: theme.colorScheme.onSurface.withOpacity(0.5),
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           ),
           border: InputBorder.none,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
         ),
       ),
     );
@@ -184,7 +200,7 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
         ),
       ),
       child: DropdownButtonHideUnderline(
@@ -209,30 +225,42 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
 
   Widget _buildViewModeToggle(ThemeData theme) {
     final viewMode = ref.watch(viewModeProvider);
-
+    
     return Container(
       height: 48,
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
-          color: theme.colorScheme.outline.withOpacity(0.3),
+          color: theme.colorScheme.outline.withValues(alpha: 0.3),
         ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildViewModeButton(
-              theme, Icons.grid_view, ViewMode.grid, viewMode == ViewMode.grid),
+            theme,
+            Icons.grid_view,
+            ViewMode.grid,
+            viewMode == ViewMode.grid,
+          ),
           _buildViewModeButton(
-              theme, Icons.view_list, ViewMode.list, viewMode == ViewMode.list),
+            theme,
+            Icons.view_list,
+            ViewMode.list,
+            viewMode == ViewMode.list,
+          ),
         ],
       ),
     );
   }
 
   Widget _buildViewModeButton(
-      ThemeData theme, IconData icon, ViewMode mode, bool isSelected) {
+    ThemeData theme,
+    IconData icon,
+    ViewMode mode,
+    bool isSelected,
+  ) {
     return InkWell(
       onTap: () => ref.read(viewModeProvider.notifier).state = mode,
       borderRadius: BorderRadius.circular(8),
@@ -240,25 +268,24 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         width: 48,
         height: 48,
         decoration: BoxDecoration(
-          color: isSelected
-              ? theme.colorScheme.primary.withOpacity(0.1)
-              : Colors.transparent,
+          color: isSelected 
+            ? theme.colorScheme.primary.withValues(alpha: 0.1)
+            : Colors.transparent,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Icon(
           icon,
-          color: isSelected
-              ? theme.colorScheme.primary
-              : theme.colorScheme.onSurface.withOpacity(0.5),
+          color: isSelected 
+            ? theme.colorScheme.primary
+            : theme.colorScheme.onSurface.withValues(alpha: 0.5),
         ),
       ),
     );
   }
 
-  Widget _buildDatasetGrid(
-      BuildContext context, ThemeData theme, MarketplaceState state) {
+  Widget _buildDatasetGrid(BuildContext context, ThemeData theme, MarketplaceState state) {
     final viewMode = ref.watch(viewModeProvider);
-
+    
     if (state.isLoading && state.datasets.isEmpty) {
       return const Center(child: CircularProgressIndicator());
     }
@@ -268,21 +295,28 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 64, color: theme.colorScheme.error),
+            Icon(
+              Icons.error_outline,
+              size: 64,
+              color: theme.colorScheme.error,
+            ),
             const SizedBox(height: 16),
-            Text('Error loading datasets',
-                style: theme.textTheme.headlineSmall),
+            Text(
+              'Error loading datasets',
+              style: theme.textTheme.headlineSmall,
+            ),
             const SizedBox(height: 8),
             Text(
               state.error!,
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
             const SizedBox(height: 24),
             ElevatedButton(
-              onPressed: () =>
-                  ref.read(marketplaceNotifierProvider.notifier).refresh(),
+              onPressed: () {
+                ref.read(marketplaceNotifierProvider.notifier).refresh();
+              },
               child: const Text('Retry'),
             ),
           ],
@@ -295,15 +329,21 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.dataset_outlined,
-                size: 64, color: theme.colorScheme.onSurface.withOpacity(0.3)),
+            Icon(
+              Icons.dataset_outlined,
+              size: 64,
+              color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
+            ),
             const SizedBox(height: 16),
-            Text('No datasets found', style: theme.textTheme.headlineSmall),
+            Text(
+              'No datasets found',
+              style: theme.textTheme.headlineSmall,
+            ),
             const SizedBox(height: 8),
             Text(
               'Try adjusting your filters or search terms',
               style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurface.withOpacity(0.7),
+                color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
               ),
             ),
           ],
@@ -314,8 +354,8 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
     return Padding(
       padding: const EdgeInsets.all(24),
       child: viewMode == ViewMode.grid
-          ? _buildGridView(state)
-          : _buildListView(state),
+        ? _buildGridView(state)
+        : _buildListView(state),
     );
   }
 
@@ -331,7 +371,9 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
       itemCount: state.datasets.length + (state.isLoading ? 3 : 0),
       itemBuilder: (context, index) {
         if (index >= state.datasets.length) {
-          return const Card(child: Center(child: CircularProgressIndicator()));
+          return const Card(
+            child: Center(child: CircularProgressIndicator()),
+          );
         }
         return DatasetCard(dataset: state.datasets[index]);
       },
@@ -352,7 +394,10 @@ class _MarketplacePageState extends ConsumerState<MarketplacePage> {
             ),
           );
         }
-        return DatasetCard(dataset: state.datasets[index], isListView: true);
+        return DatasetCard(
+          dataset: state.datasets[index],
+          isListView: true,
+        );
       },
     );
   }
