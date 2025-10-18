@@ -14,7 +14,7 @@ class MainScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Scaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -26,7 +26,8 @@ class MainScaffold extends StatelessWidget {
                   child: ConstrainedBox(
                     constraints: BoxConstraints(
                       minHeight: 0,
-                      maxHeight: constraints.maxHeight - 80, // Subtract nav bar height
+                      maxHeight:
+                          constraints.maxHeight - 50, // Subtract nav bar height
                     ),
                     child: child,
                   ),
@@ -41,9 +42,9 @@ class MainScaffold extends StatelessWidget {
 
   Widget _buildWebNavigationBar(BuildContext context, ThemeData theme) {
     final currentLocation = GoRouterState.of(context).uri.path;
-    
+
     return Container(
-      height: 80,
+      height: 50,
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         border: Border(
@@ -67,12 +68,12 @@ class MainScaffold extends StatelessWidget {
             // Logo and Brand
             _buildLogo(theme),
             const SizedBox(width: 48),
-            
+
             // Main Navigation
             Expanded(
               child: _buildMainNavigation(context, currentLocation, theme),
             ),
-            
+
             // Right Side Actions
             _buildRightActions(context, theme),
           ],
@@ -115,18 +116,32 @@ class MainScaffold extends StatelessWidget {
     );
   }
 
-  Widget _buildMainNavigation(BuildContext context, String currentLocation, ThemeData theme) {
+  Widget _buildMainNavigation(
+      BuildContext context, String currentLocation, ThemeData theme) {
     final navItems = [
       {'route': AppRoutes.home, 'label': 'Home', 'icon': Icons.home_outlined},
-      {'route': AppRoutes.marketplace, 'label': 'Marketplace', 'icon': Icons.store_outlined},
-      {'route': AppRoutes.myData, 'label': 'My Data', 'icon': Icons.dataset_outlined},
-      {'route': AppRoutes.dao, 'label': 'DAO', 'icon': Icons.how_to_vote_outlined},
+      {
+        'route': AppRoutes.marketplace,
+        'label': 'Marketplace',
+        'icon': Icons.store_outlined
+      },
+      {
+        'route': AppRoutes.myData,
+        'label': 'My Data',
+        'icon': Icons.dataset_outlined
+      },
+      {
+        'route': AppRoutes.dao,
+        'label': 'DAO',
+        'icon': Icons.how_to_vote_outlined
+      },
     ];
 
     return Row(
       children: navItems.map((item) {
-        final isSelected = _isRouteSelected(currentLocation, item['route'] as String);
-        
+        final isSelected =
+            _isRouteSelected(currentLocation, item['route'] as String);
+
         return Padding(
           padding: const EdgeInsets.only(right: 32),
           child: Material(
@@ -135,11 +150,12 @@ class MainScaffold extends StatelessWidget {
               onTap: () => context.go(item['route'] as String),
               borderRadius: BorderRadius.circular(8),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                 decoration: BoxDecoration(
-                  color: isSelected 
-                    ? theme.colorScheme.primary.withValues(alpha: 0.1)
-                    : Colors.transparent,
+                  color: isSelected
+                      ? theme.colorScheme.primary.withValues(alpha: 0.1)
+                      : Colors.transparent,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Row(
@@ -148,18 +164,20 @@ class MainScaffold extends StatelessWidget {
                     Icon(
                       item['icon'] as IconData,
                       size: 20,
-                      color: isSelected 
-                        ? theme.colorScheme.primary
-                        : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                      color: isSelected
+                          ? theme.colorScheme.primary
+                          : theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                     const SizedBox(width: 8),
                     Text(
                       item['label'] as String,
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                        color: isSelected 
-                          ? theme.colorScheme.primary
-                          : theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                        fontWeight:
+                            isSelected ? FontWeight.w600 : FontWeight.w500,
+                        color: isSelected
+                            ? theme.colorScheme.primary
+                            : theme.colorScheme.onSurface
+                                .withValues(alpha: 0.7),
                       ),
                     ),
                   ],
@@ -185,7 +203,7 @@ class MainScaffold extends StatelessWidget {
           onTap: () => context.go(AppRoutes.wallet),
         ),
         const SizedBox(width: 16),
-        
+
         // Profile Menu
         _buildProfileMenu(context, theme),
       ],
