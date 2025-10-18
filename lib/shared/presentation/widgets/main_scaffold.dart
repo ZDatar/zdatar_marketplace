@@ -70,8 +70,14 @@ class MainScaffold extends StatelessWidget {
             const SizedBox(width: 48),
 
             // Main Navigation
+            _buildMainNavigation(context, currentLocation, theme),
+            
+            // Search Box
             Expanded(
-              child: _buildMainNavigation(context, currentLocation, theme),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: _buildSearchBox(context, theme),
+              ),
             ),
 
             // Right Side Actions
@@ -187,6 +193,60 @@ class MainScaffold extends StatelessWidget {
           ),
         );
       }).toList(),
+    );
+  }
+
+  Widget _buildSearchBox(BuildContext context, ThemeData theme) {
+    return Container(
+      constraints: const BoxConstraints(maxWidth: 400),
+      child: TextField(
+        decoration: InputDecoration(
+          hintText: 'Search datasets, tasks, and more...',
+          hintStyle: theme.textTheme.bodyMedium?.copyWith(
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+          ),
+          prefixIcon: Icon(
+            Icons.search,
+            size: 20,
+            color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
+          ),
+          filled: true,
+          fillColor: theme.colorScheme.surface,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(24),
+            borderSide: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
+              width: 1,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(24),
+            borderSide: BorderSide(
+              color: theme.colorScheme.outline.withValues(alpha: 0.3),
+              width: 1,
+            ),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(24),
+            borderSide: BorderSide(
+              color: theme.colorScheme.primary,
+              width: 2,
+            ),
+          ),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
+          isDense: true,
+        ),
+        style: theme.textTheme.bodyMedium,
+        onSubmitted: (value) {
+          if (value.trim().isNotEmpty) {
+            // Navigate to search results page with query
+            context.go('/search?q=${Uri.encodeComponent(value.trim())}');
+          }
+        },
+      ),
     );
   }
 
