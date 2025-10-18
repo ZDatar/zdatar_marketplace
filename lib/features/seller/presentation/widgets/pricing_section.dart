@@ -17,7 +17,7 @@ class PricingSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return SingleChildScrollView(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,28 +28,28 @@ class PricingSection extends StatelessWidget {
             'Set Price *',
             _buildPriceInput(theme),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Currency Selection
           _buildSection(
             theme,
             'Currency',
             _buildCurrencySelector(theme),
           ),
-          
+
           const SizedBox(height: 16),
-          
+
           // Price Breakdown
           _buildPriceBreakdown(theme),
-          
+
           const SizedBox(height: 16),
-          
+
           // Pricing Suggestions
           _buildPricingSuggestions(theme),
-          
+
           const SizedBox(height: 16),
-          
+
           // Market Insights
           _buildMarketInsights(theme),
         ],
@@ -96,7 +96,8 @@ class PricingSection extends StatelessWidget {
           child: DropdownButtonFormField<String>(
             value: selectedCurrency,
             decoration: const InputDecoration(
-              contentPadding: EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+              contentPadding:
+                  EdgeInsets.symmetric(horizontal: 12, vertical: 16),
             ),
             items: AppConstants.supportedTokens.map((currency) {
               return DropdownMenuItem(
@@ -164,7 +165,7 @@ class PricingSection extends StatelessWidget {
     final price = double.tryParse(priceController.text) ?? 0.0;
     final platformFee = price * 0.025; // 2.5% platform fee
     final youReceive = price - platformFee;
-    
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -179,16 +180,22 @@ class PricingSection extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             _buildBreakdownRow(theme, 'Dataset Price', price, selectedCurrency),
-            _buildBreakdownRow(theme, 'Platform Fee (2.5%)', platformFee, selectedCurrency, isDeduction: true),
+            _buildBreakdownRow(
+                theme, 'Platform Fee (2.5%)', platformFee, selectedCurrency,
+                isDeduction: true),
             const Divider(),
-            _buildBreakdownRow(theme, 'You Receive', youReceive, selectedCurrency, isTotal: true),
+            _buildBreakdownRow(
+                theme, 'You Receive', youReceive, selectedCurrency,
+                isTotal: true),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildBreakdownRow(ThemeData theme, String label, double amount, String currency, {bool isDeduction = false, bool isTotal = false}) {
+  Widget _buildBreakdownRow(
+      ThemeData theme, String label, double amount, String currency,
+      {bool isDeduction = false, bool isTotal = false}) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -205,11 +212,11 @@ class PricingSection extends StatelessWidget {
             '${isDeduction ? '-' : ''}${amount.toStringAsFixed(2)} $currency',
             style: theme.textTheme.bodyMedium?.copyWith(
               fontWeight: isTotal ? FontWeight.bold : FontWeight.normal,
-              color: isTotal 
-                ? theme.colorScheme.primary 
-                : isDeduction 
-                  ? theme.colorScheme.error 
-                  : null,
+              color: isTotal
+                  ? theme.colorScheme.primary
+                  : isDeduction
+                      ? theme.colorScheme.error
+                      : null,
             ),
           ),
         ],
@@ -241,7 +248,8 @@ class PricingSection extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            _buildSuggestionItem(theme, 'Location Data (1-3 months)', '\$50 - \$200'),
+            _buildSuggestionItem(
+                theme, 'Location Data (1-3 months)', '\$50 - \$200'),
             _buildSuggestionItem(theme, 'Health/Fitness Data', '\$30 - \$150'),
             _buildSuggestionItem(theme, 'App Usage Analytics', '\$25 - \$100'),
             _buildSuggestionItem(theme, 'Sensor Data (IoT)', '\$40 - \$180'),
@@ -266,7 +274,8 @@ class PricingSection extends StatelessWidget {
     );
   }
 
-  Widget _buildSuggestionItem(ThemeData theme, String dataType, String priceRange) {
+  Widget _buildSuggestionItem(
+      ThemeData theme, String dataType, String priceRange) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 2),
       child: Row(
@@ -312,17 +321,22 @@ class PricingSection extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 12),
-            _buildInsightItem(theme, 'Average Dataset Price', '\$87.50', Icons.attach_money),
-            _buildInsightItem(theme, 'Most Popular Currency', 'USDC (65%)', Icons.currency_exchange),
-            _buildInsightItem(theme, 'Datasets with Samples', '+40% sales', Icons.trending_up),
-            _buildInsightItem(theme, 'Avg. Time to First Sale', '3.2 days', Icons.schedule),
+            _buildInsightItem(
+                theme, 'Average Dataset Price', '\$87.50', Icons.attach_money),
+            _buildInsightItem(theme, 'Most Popular Currency', 'USDC (65%)',
+                Icons.currency_exchange),
+            _buildInsightItem(theme, 'Datasets with Samples', '+40% sales',
+                Icons.trending_up),
+            _buildInsightItem(
+                theme, 'Avg. Time to First Sale', '3.2 days', Icons.schedule),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildInsightItem(ThemeData theme, String label, String value, IconData icon) {
+  Widget _buildInsightItem(
+      ThemeData theme, String label, String value, IconData icon) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
@@ -357,7 +371,7 @@ class PricingSection extends StatelessWidget {
         return const Icon(Icons.currency_bitcoin, size: 16);
       case 'USDC':
         return const Icon(Icons.attach_money, size: 16);
-      case 'ZDATA':
+      case 'ZDTR':
         return const Icon(Icons.data_usage, size: 16);
       default:
         return const Icon(Icons.monetization_on, size: 16);

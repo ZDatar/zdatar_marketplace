@@ -143,7 +143,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                'Participate in governance by staking ZDATA tokens and voting on proposals that shape the future of the marketplace.',
+                'Participate in governance by staking ZDTR tokens and voting on proposals that shape the future of the marketplace.',
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.8),
                   fontSize: 14,
@@ -172,7 +172,8 @@ class _DaoPageState extends ConsumerState<DaoPage>
         ),
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
-        unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+        unselectedLabelColor:
+            theme.colorScheme.onSurface.withValues(alpha: 0.7),
         tabs: const [
           Tab(text: 'Active'),
           Tab(text: 'Past'),
@@ -287,7 +288,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
                   _buildHoldingItem(
                       theme, 'USDC', '1,500,000', '\$1.5M', Colors.blue),
                   _buildHoldingItem(
-                      theme, 'ZDATA', '2,000,000', '\$500K', Colors.green),
+                      theme, 'ZDTR', '2,000,000', '\$500K', Colors.green),
                 ],
               ),
             ),
@@ -392,7 +393,8 @@ class _DaoPageState extends ConsumerState<DaoPage>
           Icon(
             icon,
             size: 64,
-            color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+            color: theme.colorScheme.surfaceContainerHighest
+                .withValues(alpha: 0.3),
           ),
           const SizedBox(height: 16),
           Text(
@@ -607,7 +609,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
         'id': '3',
         'title': 'Implement Staking Rewards',
         'description':
-            'Proposal to implement staking rewards for ZDATA token holders.',
+            'Proposal to implement staking rewards for ZDTR token holders.',
         'proposer': 'Community Member',
         'votesFor': 2100000,
         'votesAgainst': 300000,
@@ -636,7 +638,7 @@ class _DaoPageState extends ConsumerState<DaoPage>
       builder: (context) => AlertDialog(
         title: const Text('About ZDatar DAO'),
         content: const Text(
-          'The ZDatar DAO is a decentralized autonomous organization that governs the ZDatar marketplace. Token holders can stake ZDATA tokens to participate in governance and vote on proposals that shape the future of the platform.',
+          'The ZDatar DAO is a decentralized autonomous organization that governs the ZDatar marketplace. Token holders can stake ZDTR tokens to participate in governance and vote on proposals that shape the future of the platform.',
         ),
         actions: [
           TextButton(

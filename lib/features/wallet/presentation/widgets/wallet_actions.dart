@@ -108,7 +108,7 @@ class WalletActions extends StatelessWidget {
               items: const [
                 DropdownMenuItem(value: 'SOL', child: Text('SOL')),
                 DropdownMenuItem(value: 'USDC', child: Text('USDC')),
-                DropdownMenuItem(value: 'ZDATA', child: Text('ZDATA')),
+                DropdownMenuItem(value: 'ZDTR', child: Text('ZDTR')),
               ],
               onChanged: (value) {},
             ),
@@ -156,7 +156,10 @@ class WalletActions extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.surfaceContainerHighest.withValues(alpha: 0.3),
+                color: Theme.of(context)
+                    .colorScheme
+                    .surfaceContainerHighest
+                    .withValues(alpha: 0.3),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Row(
@@ -209,7 +212,7 @@ class WalletActions extends StatelessWidget {
               items: const [
                 DropdownMenuItem(value: 'SOL', child: Text('SOL')),
                 DropdownMenuItem(value: 'USDC', child: Text('USDC')),
-                DropdownMenuItem(value: 'ZDATA', child: Text('ZDATA')),
+                DropdownMenuItem(value: 'ZDTR', child: Text('ZDTR')),
               ],
               onChanged: (value) {},
             ),
@@ -231,7 +234,7 @@ class WalletActions extends StatelessWidget {
               items: const [
                 DropdownMenuItem(value: 'SOL', child: Text('SOL')),
                 DropdownMenuItem(value: 'USDC', child: Text('USDC')),
-                DropdownMenuItem(value: 'ZDATA', child: Text('ZDATA')),
+                DropdownMenuItem(value: 'ZDTR', child: Text('ZDTR')),
               ],
               onChanged: (value) {},
             ),

@@ -188,7 +188,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
             children: [
               const Expanded(
                 child: WalletBalanceCard(
-                  title: 'ZDATA',
+                  title: 'ZDTR',
                   balance: '5,000',
                   usdValue: '\$500.00',
                   icon: Icons.data_usage,
@@ -285,7 +285,8 @@ class _WalletPageState extends ConsumerState<WalletPage>
         ),
         indicatorSize: TabBarIndicatorSize.tab,
         labelColor: Colors.white,
-        unselectedLabelColor: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+        unselectedLabelColor:
+            theme.colorScheme.onSurface.withValues(alpha: 0.7),
         tabs: const [
           Tab(text: 'Transactions'),
           Tab(text: 'Earnings'),
@@ -446,7 +447,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
                       Colors.purple),
                   _buildTokenItem(theme, 'USDC', '1,250.00', '\$1,250.00',
                       '0.0%', Colors.blue),
-                  _buildTokenItem(theme, 'ZDATA', '5,000', '\$500.00', '+15.8%',
+                  _buildTokenItem(theme, 'ZDTR', '5,000', '\$500.00', '+15.8%',
                       Colors.green),
                 ],
               ),
@@ -470,7 +471,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    'Stake your ZDATA tokens to earn rewards and participate in governance.',
+                    'Stake your ZDTR tokens to earn rewards and participate in governance.',
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
@@ -490,7 +491,7 @@ class _WalletPageState extends ConsumerState<WalletPage>
                               ),
                             ),
                             Text(
-                              '5,000 ZDATA',
+                              '5,000 ZDTR',
                               style: theme.textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.bold,
                               ),

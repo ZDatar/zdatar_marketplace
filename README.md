@@ -14,7 +14,7 @@ A decentralized blockchain-based personal data exchange marketplace built with F
 ### 💰 Seller Features
 - Upload and monetize personal data
 - Multi-step dataset upload process with validation
-- Pricing in multiple cryptocurrencies (SOL, USDC, ZDATA)
+- Pricing in multiple cryptocurrencies (SOL, USDC, ZDTR)
 - Analytics and earnings tracking
 - Dataset management dashboard
 
@@ -25,10 +25,10 @@ A decentralized blockchain-based personal data exchange marketplace built with F
 - Data decryption and download
 
 ### 💳 Wallet Integration
-- Multi-token support (SOL, USDC, ZDATA)
+- Multi-token support (SOL, USDC, ZDTR)
 - Send, receive, and swap functionality
 - Transaction history
-- Staking rewards for ZDATA tokens
+- Staking rewards for ZDTR tokens
 
 ### 🏛️ DAO Governance
 - Decentralized governance participation

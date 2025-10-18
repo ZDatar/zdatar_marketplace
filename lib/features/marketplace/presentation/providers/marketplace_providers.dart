@@ -3,6 +3,7 @@ import '../../../../models/dataset.dart';
 
 // View Mode Provider
 enum ViewMode { grid, list }
+
 final viewModeProvider = StateProvider<ViewMode>((ref) => ViewMode.grid);
 
 // Sort Options
@@ -141,7 +142,8 @@ class MarketplaceFiltersNotifier extends StateNotifier<MarketplaceFilters> {
   }
 }
 
-final marketplaceFiltersProvider = StateNotifierProvider<MarketplaceFiltersNotifier, MarketplaceFilters>(
+final marketplaceFiltersProvider =
+    StateNotifierProvider<MarketplaceFiltersNotifier, MarketplaceFilters>(
   (ref) => MarketplaceFiltersNotifier(),
 );
 
@@ -192,11 +194,12 @@ class MarketplaceNotifier extends StateNotifier<MarketplaceState> {
     try {
       // Simulate API call
       await Future.delayed(const Duration(seconds: 1));
-      
+
       final newDatasets = _generateMockDatasets(state.page);
-      
+
       state = state.copyWith(
-        datasets: state.page == 1 ? newDatasets : [...state.datasets, ...newDatasets],
+        datasets:
+            state.page == 1 ? newDatasets : [...state.datasets, ...newDatasets],
         isLoading: false,
         hasMore: newDatasets.isNotEmpty,
         page: state.page + 1,
@@ -238,7 +241,7 @@ class MarketplaceNotifier extends StateNotifier<MarketplaceState> {
         category: DatasetCategory.values[index % DatasetCategory.values.length],
         tags: ['tag1', 'tag2', 'tag3'],
         price: 50.0 + (index * 25.0),
-        currency: ['SOL', 'USDC', 'ZDATA'][index % 3],
+        currency: ['SOL', 'USDC', 'ZDTR'][index % 3],
         fileSizeBytes: (1 + index) * 1024 * 1024,
         fileType: ['json', 'csv', 'parquet'][index % 3],
         dataStartDate: DateTime.now().subtract(Duration(days: 30 + index)),
@@ -258,6 +261,7 @@ class MarketplaceNotifier extends StateNotifier<MarketplaceState> {
   }
 }
 
-final marketplaceNotifierProvider = StateNotifierProvider<MarketplaceNotifier, MarketplaceState>(
+final marketplaceNotifierProvider =
+    StateNotifierProvider<MarketplaceNotifier, MarketplaceState>(
   (ref) => MarketplaceNotifier(),
 );

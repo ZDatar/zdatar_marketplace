@@ -6,7 +6,7 @@ class GovernanceStats extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16),
@@ -26,7 +26,7 @@ class GovernanceStats extends StatelessWidget {
                   child: _buildStatItem(
                     theme,
                     'Total Staked',
-                    '12.5M ZDATA',
+                    '12.5M ZDTR',
                     Icons.lock,
                     theme.colorScheme.primary,
                   ),

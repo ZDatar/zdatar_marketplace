@@ -53,7 +53,7 @@ class VotingPowerCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '5,000 ZDATA',
+                        '5,000 ZDTR',
                         style: theme.textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.bold,
                           color: theme.colorScheme.primary,
@@ -62,7 +62,8 @@ class VotingPowerCard extends StatelessWidget {
                       Text(
                         'Staked Tokens',
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                          color: theme.colorScheme.onSurface
+                              .withValues(alpha: 0.7),
                         ),
                       ),
                     ],
@@ -83,7 +84,8 @@ class VotingPowerCard extends StatelessWidget {
                       Text(
                         'Voting Power',
                         style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                          color: theme.colorScheme.onSurface
+                              .withValues(alpha: 0.7),
                         ),
                       ),
                     ],
@@ -119,21 +121,21 @@ class VotingPowerCard extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Stake ZDATA Tokens'),
+        title: const Text('Stake ZDTR Tokens'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const TextField(
               decoration: InputDecoration(
                 labelText: 'Amount to Stake',
-                hintText: 'Enter ZDATA amount',
-                suffixText: 'ZDATA',
+                hintText: 'Enter ZDTR amount',
+                suffixText: 'ZDTR',
               ),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 16),
             Text(
-              'Available: 2,500 ZDATA',
+              'Available: 2,500 ZDTR',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context)
                         .colorScheme
@@ -166,21 +168,21 @@ class VotingPowerCard extends StatelessWidget {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Unstake ZDATA Tokens'),
+        title: const Text('Unstake ZDTR Tokens'),
         content: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             const TextField(
               decoration: InputDecoration(
                 labelText: 'Amount to Unstake',
-                hintText: 'Enter ZDATA amount',
-                suffixText: 'ZDATA',
+                hintText: 'Enter ZDTR amount',
+                suffixText: 'ZDTR',
               ),
               keyboardType: TextInputType.number,
             ),
             const SizedBox(height: 16),
             Text(
-              'Staked: 5,000 ZDATA',
+              'Staked: 5,000 ZDTR',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                     color: Theme.of(context)
                         .colorScheme
@@ -192,7 +194,8 @@ class VotingPowerCard extends StatelessWidget {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.error.withValues(alpha: 0.1),
+                color:
+                    Theme.of(context).colorScheme.error.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
