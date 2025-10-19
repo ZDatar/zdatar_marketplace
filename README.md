@@ -200,7 +200,19 @@ flutter build ios --release
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under a **Proprietary License with Custom EULA**.
+
+**Key License Terms:**
+
+- ✅ **Use**: You may use the ZDatar Marketplace app for personal or business purposes
+- ❌ **Redistribution**: Redistribution of the software is strictly forbidden
+- ❌ **Modification**: Creating derivative works or modifications is not permitted
+- ❌ **Commercial Distribution**: Selling, licensing, or distributing the software is prohibited
+- 🏪 **App Store Distribution**: Official distribution through app stores (Apple App Store, Google Play) only
+
+This is a **closed-source** application with proprietary technology. Users have rights to use the app but cannot redistribute, modify, or create derivative works. Perfect for official app store distribution as "ZDatar Official App".
+
+See the [LICENSE](LICENSE) file for complete terms and conditions.
 
 ## Support
 

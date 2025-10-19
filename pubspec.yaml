@@ -3,6 +3,11 @@ description: A decentralized blockchain-based personal data exchange marketplace
 publish_to: 'none'
 version: 1.0.0+1
 
+# Proprietary License - All Rights Reserved
+# This software is proprietary and protected by copyright law.
+# Redistribution and modification are strictly prohibited.
+# See LICENSE file for complete terms and conditions.
+
 environment:
   sdk: '>=3.0.0 <4.0.0'
   flutter: ">=3.10.0"
