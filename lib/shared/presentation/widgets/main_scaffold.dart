@@ -16,26 +16,15 @@ class MainScaffold extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Scaffold(
-      body: LayoutBuilder(
-        builder: (context, constraints) {
-          return Column(
-            children: [
-              _buildWebNavigationBar(context, theme),
-              Expanded(
-                child: ErrorBoundary(
-                  child: ConstrainedBox(
-                    constraints: BoxConstraints(
-                      minHeight: 0,
-                      maxHeight:
-                          constraints.maxHeight - 50, // Subtract nav bar height
-                    ),
-                    child: child,
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
+      body: Column(
+        children: [
+          _buildWebNavigationBar(context, theme),
+          Expanded(
+            child: ErrorBoundary(
+              child: child,
+            ),
+          ),
+        ],
       ),
     );
   }

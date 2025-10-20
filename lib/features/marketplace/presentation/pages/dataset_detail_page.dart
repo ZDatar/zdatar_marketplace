@@ -143,19 +143,11 @@ class DatasetDetailPage extends ConsumerWidget {
                   ],
                 ),
               ),
-              placeholder: (context, url) => Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    const CircularProgressIndicator(),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Loading...',
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
-                      ),
-                    ),
-                  ],
+              placeholder: (context, url) => const Center(
+                child: SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: CircularProgressIndicator(strokeWidth: 2),
                 ),
               ),
             )
@@ -346,10 +338,12 @@ class DatasetDetailPage extends ConsumerWidget {
               ),
             ),
           ),
-          Text(
-            value,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              fontWeight: FontWeight.w500,
+          Expanded(
+            child: Text(
+              value,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ],
@@ -646,7 +640,6 @@ class DatasetDetailPage extends ConsumerWidget {
                       padding: const EdgeInsets.all(12),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             'Related Dataset ${index + 1}',
@@ -655,7 +648,7 @@ class DatasetDetailPage extends ConsumerWidget {
                             overflow: TextOverflow.ellipsis,
                           ),
                           const SizedBox(height: 4),
-                          Expanded(
+                          Flexible(
                             child: Text(
                               'Brief description of the related dataset',
                               style: theme.textTheme.bodySmall,

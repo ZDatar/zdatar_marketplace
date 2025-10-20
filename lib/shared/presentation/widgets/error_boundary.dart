@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class ErrorBoundary extends StatefulWidget {
   final Widget child;
@@ -20,28 +21,47 @@ class ErrorBoundary extends StatefulWidget {
 class _ErrorBoundaryState extends State<ErrorBoundary> {
   bool _hasError = false;
   FlutterErrorDetails? _errorDetails;
+  FlutterExceptionHandler? _previousErrorHandler;
 
   @override
   void initState() {
     super.initState();
     
+    // Save the previous error handler
+    _previousErrorHandler = FlutterError.onError;
+    
     // Set up error handler
     FlutterError.onError = (FlutterErrorDetails details) {
+      // Schedule setState for next frame to avoid calling it during build/paint
       if (mounted) {
-        setState(() {
-          _hasError = true;
-          _errorDetails = details;
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          if (mounted) {
+            setState(() {
+              _hasError = true;
+              _errorDetails = details;
+            });
+          }
         });
       }
       
       // Call custom error handler if provided
       widget.onError?.call(details);
       
+      // Call previous error handler if it exists
+      _previousErrorHandler?.call(details);
+      
       // Log error in debug mode
       if (kDebugMode) {
         FlutterError.presentError(details);
       }
     };
+  }
+
+  @override
+  void dispose() {
+    // Restore the previous error handler
+    FlutterError.onError = _previousErrorHandler;
+    super.dispose();
   }
 
   @override
@@ -54,8 +74,9 @@ class _ErrorBoundaryState extends State<ErrorBoundary> {
   }
 
   Widget _buildDefaultErrorWidget(BuildContext context) {
-    return Scaffold(
-      body: Center(
+    return Container(
+      color: Theme.of(context).scaffoldBackgroundColor,
+      child: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
