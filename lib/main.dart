@@ -55,4 +55,10 @@ Future<void> _initializeHiveBoxes() async {
   } catch (e) {
     if (kDebugMode) print('Failed to open transaction box: $e');
   }
+  
+  try {
+    await Hive.openBox('taskBox');
+  } catch (e) {
+    if (kDebugMode) print('Failed to open task box: $e');
+  }
 }

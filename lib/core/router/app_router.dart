@@ -8,6 +8,9 @@ import '../../features/seller/presentation/pages/my_datasets_page.dart';
 import '../../features/wallet/presentation/pages/wallet_page.dart';
 import '../../features/profile/presentation/pages/profile_page.dart';
 import '../../features/dao/presentation/pages/dao_page.dart';
+import '../../features/tasks/presentation/pages/tasks_page.dart';
+import '../../features/tasks/presentation/pages/create_task_page.dart';
+import '../../features/tasks/presentation/pages/task_detail_page.dart';
 import '../../shared/presentation/widgets/main_scaffold.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
@@ -66,6 +69,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             name: 'dao',
             builder: (context, state) => const DaoPage(),
           ),
+          GoRoute(
+            path: '/tasks',
+            name: 'tasks',
+            builder: (context, state) => const TasksPage(),
+            routes: [
+              GoRoute(
+                path: 'create',
+                name: 'create-task',
+                builder: (context, state) => const CreateTaskPage(),
+              ),
+              GoRoute(
+                path: ':id',
+                name: 'task-detail',
+                builder: (context, state) {
+                  final taskId = state.pathParameters['id']!;
+                  return TaskDetailPage(taskId: taskId);
+                },
+              ),
+            ],
+          ),
         ],
       ),
     ],
@@ -81,4 +104,7 @@ class AppRoutes {
   static const String wallet = '/wallet';
   static const String profile = '/profile';
   static const String dao = '/dao';
+  static const String tasks = '/tasks';
+  static const String createTask = '/tasks/create';
+  static const String taskDetail = '/tasks';
 }

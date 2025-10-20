@@ -132,6 +132,11 @@ class MainScaffold extends StatelessWidget {
         'icon': Icons.store_outlined
       },
       {
+        'route': AppRoutes.tasks,
+        'label': 'Tasks',
+        'icon': Icons.work_outline
+      },
+      {
         'route': AppRoutes.myData,
         'label': 'My Data',
         'icon': Icons.dataset_outlined
